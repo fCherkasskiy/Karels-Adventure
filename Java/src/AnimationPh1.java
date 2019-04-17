@@ -21,19 +21,18 @@ public class AnimationPh1 extends JPanel implements ActionListener, KeyListener 
 
     }
 
-    public void paintComponent(Graphics h) {
-        super.paintComponent(h);
-        h.setColor(Color.RED);
-        h.fillRect(x,height-y,30,30);
-        tm.start();
-    }
+//    public void paintComponent(Graphics h) {
+//        super.paintComponent(h);
+//        h.setColor(Color.BLACK);
+//        h.fillRect(x,height-y,30,30);
+//        tm.start();
+//    }
 
-    /**public void paintComponent(Graphics h)
-     {
-     super.paintComponent(h);
-     ImageIcon i = new ImageIcon("D:\\Users\\Ari\\Documents\\TJHSST\\a_game\\Bear.jpg");
-     i.paintIcon(this, h, x, y);
-     }**/
+//    public void paintComponent(Graphics h) {
+//        super.paintComponent(h);
+//        ImageIcon i = new ImageIcon("E:/");
+//        i.paintIcon(this, h, x, y);
+//     }
 
     public void actionPerformed(ActionEvent e) {
         if (x < 0) {
@@ -58,13 +57,11 @@ public class AnimationPh1 extends JPanel implements ActionListener, KeyListener 
                 vely=0;
             }
             g=0;
-
-            /*if (jumptm!=0)
-             {
-             System.out.print("jump reset");
-             }
-             jumptm=0;**/
-            //System.out.print("jump reset");
+//            if (jumptm!=0){
+//                System.out.print("jump reset");
+//            }
+//            jumptm=0;
+//            System.out.print("jump reset");
         }
         if (y >= top) {
             g=2;
