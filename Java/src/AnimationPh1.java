@@ -3,7 +3,8 @@ import java.awt.event.*;
 import javax.swing.*;
 
 
-public class AnimationPh1 extends JPanel implements ActionListener, KeyListener /*Cavnas,JPanel*/{
+public class AnimationPh1 extends JPanel implements ActionListener, KeyListener /*Canvas,JPanel*/{
+
     Timer tm = new Timer(30,this);
     int width = 1000, height = 400;
     int speed = 5;
@@ -28,11 +29,12 @@ public class AnimationPh1 extends JPanel implements ActionListener, KeyListener 
 //        tm.start();
 //    }
 
-//    public void paintComponent(Graphics h) {
-//        super.paintComponent(h);
-//        ImageIcon i = new ImageIcon("E:/");
-//        i.paintIcon(this, h, x, y);
-//     }
+    public void paintComponent(Graphics h) {
+        super.paintComponent(h);
+        ImageIcon i = new ImageIcon("E:\\TJHSST\\Karels-Adventure\\Resources\\north.png");  // The path should be different for each of us
+        i.paintIcon(this, h, x, height - y);
+        tm.start();
+    }
 
     public void actionPerformed(ActionEvent e) {
         if (x < 0) {
