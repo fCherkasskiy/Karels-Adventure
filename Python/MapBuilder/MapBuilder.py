@@ -6,13 +6,11 @@ from Tkinter import Tk, Canvas
 final = 0
 fileopened = 0
 
-# filename = raw_input("Input filename: ")
-filename = "new"
+filename = raw_input("Input filename: ")
 
 if filename == "new":
-    # size1 = raw_input("Canvas width: ")
-    # size2 = raw_input("Canvas height: ")
-    size1, size2 = 200, 200
+    size1 = raw_input("Canvas width: ")
+    size2 = raw_input("Canvas height: ")
 elif filename == "final":
     filename = raw_input("Input filename: ")
     final = 1
@@ -37,17 +35,17 @@ x2, y2 = 0, 0
 x3, y3 = 0, 0
 arr = []
 
-colors = ["black", "green",
-          "red", "blue",
-
-          "white", "#FFA500",
-          "#FFFF00", "#00FFFF",
+colors = ["#808000", "#008000",
+          "#A52A2A", "#808080"
 
           "#0000A0", "#ADD8E6",
           "#800080", "#FF00FF",
 
-          "#808000", "#008000",
-          "#A52A2A", "#808080"]
+          "white", "#FFA500",
+          "#FFFF00", "#00FFFF",
+
+          "black", "green",
+          "red", "blue"]
 
 counter, counter2 = 0, 0
 xin, yin = 0, 0
