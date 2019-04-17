@@ -6,11 +6,13 @@ from Tkinter import Tk, Canvas
 final = 0
 fileopened = 0
 
-filename = raw_input("Input filename: ")
+# filename = raw_input("Input filename: ")
+filename = "new"
 
 if filename == "new":
-    size1 = raw_input("Canvas width: ")
-    size2 = raw_input("Canvas height: ")
+    # size1 = raw_input("Canvas width: ")
+    # size2 = raw_input("Canvas height: ")
+    size1, size2 = 200, 200
 elif filename == "final":
     filename = raw_input("Input filename: ")
     final = 1
@@ -29,33 +31,31 @@ else:
     fileopened = 1
 
 w, h = int(size1), int(size2)
-
-stop = False
-run = True
-x = 0
-y = 0
-x2 = 0
-y2 = 0
-x3 = 0
-y3 = 0
+stop, run = False, True
+x, y = 0, 0
+x2, y2 = 0, 0
+x3, y3 = 0, 0
 arr = []
-row = []
-col = []
-colors = ["#000000", "#FFFFFF", "#FF0000", "#0000FF", "#00FF00", "#00ffff", "#ffff00", "#ffa500",
-          "#0000A0", "#ADD8E6", "#800080", "#FF00FF", "#808000", "#008000", "#A52A2A", "#808080"]
-counter = 0
-tool = ''
-counter2 = 0
-xin = 0
-yin = 0
-color = "black"
 
+colors = ["black", "green",
+          "red", "blue",
 
-root = Tk()
-canvas = Canvas(root, width=w, height=h, bg="white")
+          "white", "#FFA500",
+          "#FFFF00", "#00FFFF",
+
+          "#0000A0", "#ADD8E6",
+          "#800080", "#FF00FF",
+
+          "#808000", "#008000",
+          "#A52A2A", "#808080"]
+
+counter, counter2 = 0, 0
+xin, yin = 0, 0
+tool, color = "", "black"
+
+root, root2 = Tk(), Tk()
+canvas, canvas2 = Canvas(root, width=w, height=h, bg="white"), Canvas(root2, width=80, height=600, bg="white")
 canvas.pack()
-root2 = Tk()
-canvas2 = Canvas(root2, width=80, height=600, bg="white")
 canvas2.pack()
 
 
@@ -70,14 +70,11 @@ def setup(start, listimp):
             if start:
                 val = 1
             else:
-                xin = o % (w / 10)
-                yin = o / (w / 10)
+                xin, yin = o % (w / 10), o / (w / 10)
                 val = int(listimp[o])
                 o += 1
-            row.append(val)  # death,powerup,special terrain,color
+            row.append(val)  # death, power up, special terrain, color
         arr.append(row)
-    # print arr
-# print arr
 
 
 for i in range(640, 0, -1):
@@ -92,27 +89,27 @@ for n in range(h / 10):
     canvas.create_line(0, n * 10, w, n * 10)
 
 canvas2.create_rectangle((0, 400), (40, 440),
-                         outline="black", fill="#FFFFFF")  # black
+                         outline="black", fill="black")  # black
 canvas2.create_rectangle((40, 400), (80, 440),
-                         outline="green", fill="#00FF00")  # green
+                         outline="green", fill="green")  # green
 canvas2.create_rectangle((0, 440), (40, 480),
-                         outline="red", fill="#FF0000")  # red
+                         outline="red", fill="red")  # red
 canvas2.create_rectangle((40, 440), (80, 480),
-                         outline="blue", fill="0000FF")  # blue
+                         outline="blue", fill="blue")  # blue
 
 canvas2.create_rectangle((0, 360), (40, 320),
-                         outline="#ffffff", fill="#ffffff")  # white
+                         outline="white", fill="white")  # white
 canvas2.create_rectangle((40, 360), (80, 320),
-                         outline="#ffa500", fill="#ffa500")  # orange
+                         outline="#FFA500", fill="#FFA500")  # orange
 canvas2.create_rectangle((0, 400), (40, 360),
-                         outline="#ffff00", fill="#ffff00")  # yellow
+                         outline="#FFFF00", fill="#FFFF00")  # yellow
 canvas2.create_rectangle((40, 400), (80, 360),
-                         outline="#00ffff", fill="#00ffff")  # cyan
+                         outline="#00FFFF", fill="#00FFFF")  # cyan
 
 canvas2.create_rectangle((0, 280), (40, 240),
                          outline="#0000A0", fill="#0000A0")  # d blue
 canvas2.create_rectangle((40, 280), (80, 240),
-                         outline="#ADD8E6", fill="#ADD8E6")  # light blue
+                         outline="#AEE8E6", fill="#AEE8E6")  # light blue
 canvas2.create_rectangle((0, 320), (40, 280),
                          outline="#800080", fill="#800080")  # purple
 canvas2.create_rectangle((40, 320), (80, 280),
@@ -125,7 +122,7 @@ canvas2.create_rectangle((40, 200), (80, 160),
 canvas2.create_rectangle((0, 240), (40, 200),
                          outline="#A52A2A", fill="#A52A2A")  # brown
 canvas2.create_rectangle((40, 240), (80, 200),
-                         outline="#808080", fill="#808080")  # grey
+                         outline="#808080", fill="#808080")  # gray
 
 x = 1000
 
@@ -197,10 +194,10 @@ def colorpick(_x, _y, inp):
                         color = "green"
                     else:
                         color = "blue"
-            elif _y < 400:
+            elif _y > 320:
                 if _x < 40:
                     if _y < 360:
-                        color = "#ffffff"
+                        color = "white"
                     else:
                         color = "#ffff00"
                 else:
@@ -208,6 +205,28 @@ def colorpick(_x, _y, inp):
                         color = "#ffa500"
                     else:
                         color = "#00ffff"
+            elif _y > 240:
+                if _x < 40:
+                    if _y < 280:
+                        color = "#0000A0"
+                    else:
+                        color = "#800080"
+                else:
+                    if _y < 280:
+                        color = "#ADD8E6"
+                    else:
+                        color = "#FF00FF"
+            elif _y > 160:
+                if _x < 40:
+                    if _y < 200:
+                        color = "#808000"
+                    else:
+                        color = "#A52A2A"
+                else:
+                    if _y < 200:
+                        color = "#008000"
+                    else:
+                        color = "#808080"
     return color
 
 
