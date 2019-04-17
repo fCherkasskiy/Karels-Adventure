@@ -1,2 +1,2 @@
-[x] animations
-[] custom block that jumps
+- [x] animations
+- [ ] custom block that jumps
