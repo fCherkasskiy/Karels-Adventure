@@ -2,10 +2,8 @@
 
 from Tkinter import Tk, Canvas
 
-
 final = 0
 fileopened = 0
-
 filename = raw_input("Input filename: ")
 
 if filename == "new":
@@ -16,15 +14,13 @@ elif filename == "final":
     final = 1
     r = open(filename, "r")
     r2 = r.read().split()
-    size1 = int(r2[0])*10
-    size2 = int(r2[1])*10
+    size1, size2 = int(r2[0]) * 10, int(r2[1]) * 10
     r.close()
     fileopened = 1
 else:
     r = open(filename, "r")
     r2 = r.read().split()
-    size1 = int(r2[0]) * 10
-    size2 = int(r2[1]) * 10
+    size1, size2 = int(r2[0]) * 10, int(r2[1]) * 10
     r.close()
     fileopened = 1
 
@@ -36,7 +32,7 @@ x3, y3 = 0, 0
 arr = []
 
 colors = ["#808000", "#008000",
-          "#A52A2A", "#808080"
+          "#A52A2A", "#808080",
 
           "#0000A0", "#ADD8E6",
           "#800080", "#FF00FF",
@@ -50,7 +46,6 @@ colors = ["#808000", "#008000",
 counter, counter2 = 0, 0
 xin, yin = 0, 0
 tool, color = "", "black"
-
 root, root2 = Tk(), Tk()
 canvas, canvas2 = Canvas(root, width=w, height=h, bg="white"), Canvas(root2, width=80, height=600, bg="white")
 canvas.pack()
@@ -82,79 +77,51 @@ for i in range(640, 0, -1):
                                      outline="black", fill="white")
 for m in range(w / 10):
     canvas.create_line(m * 10, 0, m * 10, h)
-
 for n in range(h / 10):
     canvas.create_line(0, n * 10, w, n * 10)
 
-canvas2.create_rectangle((0, 400), (40, 440),
-                         outline="black", fill="black")  # black
-canvas2.create_rectangle((40, 400), (80, 440),
-                         outline="green", fill="green")  # green
-canvas2.create_rectangle((0, 440), (40, 480),
-                         outline="red", fill="red")  # red
-canvas2.create_rectangle((40, 440), (80, 480),
-                         outline="blue", fill="blue")  # blue
+canvas2.create_rectangle((0, 400), (40, 440), outline=colors[12], fill=colors[12])  # black
+canvas2.create_rectangle((40, 400), (80, 440), outline=colors[13], fill=colors[13])  # green
+canvas2.create_rectangle((0, 440), (40, 480), outline=colors[14], fill=colors[14])  # red
+canvas2.create_rectangle((40, 440), (80, 480), outline=colors[15], fill=colors[15])  # blue
 
-canvas2.create_rectangle((0, 360), (40, 320),
-                         outline="white", fill="white")  # white
-canvas2.create_rectangle((40, 360), (80, 320),
-                         outline="#FFA500", fill="#FFA500")  # orange
-canvas2.create_rectangle((0, 400), (40, 360),
-                         outline="#FFFF00", fill="#FFFF00")  # yellow
-canvas2.create_rectangle((40, 400), (80, 360),
-                         outline="#00FFFF", fill="#00FFFF")  # cyan
+canvas2.create_rectangle((0, 360), (40, 320), outline=colors[8], fill=colors[8])  # white
+canvas2.create_rectangle((40, 360), (80, 320), outline=colors[9], fill=colors[9])  # orange
+canvas2.create_rectangle((0, 400), (40, 360), outline=colors[10], fill=colors[10])  # yellow
+canvas2.create_rectangle((40, 400), (80, 360), outline=colors[11], fill=colors[11])  # cyan
 
-canvas2.create_rectangle((0, 280), (40, 240),
-                         outline="#0000A0", fill="#0000A0")  # d blue
-canvas2.create_rectangle((40, 280), (80, 240),
-                         outline="#AEE8E6", fill="#AEE8E6")  # light blue
-canvas2.create_rectangle((0, 320), (40, 280),
-                         outline="#800080", fill="#800080")  # purple
-canvas2.create_rectangle((40, 320), (80, 280),
-                         outline="#FF00FF", fill="#FF00FF")  # pink
+canvas2.create_rectangle((0, 280), (40, 240), outline=colors[4], fill=colors[4])  # d blue
+canvas2.create_rectangle((40, 280), (80, 240), outline=colors[5], fill=colors[5])  # light blue
+canvas2.create_rectangle((0, 320), (40, 280), outline=colors[6], fill=colors[6])  # purple
+canvas2.create_rectangle((40, 320), (80, 280), outline=colors[7], fill=colors[7])  # pink
 
-canvas2.create_rectangle((0, 200), (40, 160),
-                         outline="#808000", fill="#808000")  # olive
-canvas2.create_rectangle((40, 200), (80, 160),
-                         outline="#008000", fill="#008000")  # green
-canvas2.create_rectangle((0, 240), (40, 200),
-                         outline="#A52A2A", fill="#A52A2A")  # brown
-canvas2.create_rectangle((40, 240), (80, 200),
-                         outline="#808080", fill="#808080")  # gray
+canvas2.create_rectangle((0, 200), (40, 160), outline=colors[0], fill=colors[0])  # olive
+canvas2.create_rectangle((40, 200), (80, 160), outline=colors[1], fill=colors[1])  # green
+canvas2.create_rectangle((0, 240), (40, 200), outline=colors[2], fill=colors[2])  # brown
+canvas2.create_rectangle((40, 240), (80, 200), outline=colors[3], fill=colors[3])  # gray
 
 x = 1000
 
 
 def where_click():
-    global tool, color, counter2, stop, run
-    global counter, counter2, x, y, x2, y2, tool, color, stop, run, arr, xin, yin, filename
+    global counter2, x, y, tool, color, stop, run, arr
     counter2 = 0
 
     def getorigin(eventorigin):
-        global counter, counter2, x, y, x2, y2, tool, color, stop, run, arr, xin, yin, filename
-        x = eventorigin.x
-        y = eventorigin.y
+        global counter2, x, y, tool, color, stop, run, arr
+        x, y = eventorigin.x, eventorigin.y
         counter2 = 1
         root.bind('c', clear)
         root.bind('s', save)
         root.bind('o', openit)
         tool = "paintbrush"
-        if tool == "paintbrush":
-            if x % 10 <= 9 and y % 10 <= 9:
-                x = x - x % 10
-                y = y - y % 10
-
-                if final == 0:
-                    canvas.create_rectangle(x + 1, y + 1, x + 9, y + 9, outline=color, fill=color)
-                else:
-                    canvas.create_rectangle(x, y, x + 10, y + 10, outline=color, fill=color)
-
-                arr[y / 10][x / 10] = colors.index(color)
-                """arr[x/10][y/10][0]=1
-                arr[x/10][y/10][1]=1
-                arr[x/10][y/10][2]=1
-                arr[x/10][y/10][3]=1
-                print arr[x][y]"""
+        if x % 10 <= 9 and y % 10 <= 9:
+            x, y = x - x % 10, y - y % 10
+            if final == 0:
+                canvas.create_rectangle(x + 1, y + 1, x + 9, y + 9, outline=color, fill=color)
+            else:
+                canvas.create_rectangle(x, y, x + 10, y + 10, outline=color, fill=color)
+            arr[y / 10][x / 10] = colors.index(color)
     if not stop:
         root.bind('<B1-Motion>', getorigin)
         root.bind('<Button-1>', getorigin)
@@ -165,8 +132,7 @@ def where_click():
 def where_click2():
     def getorigin2(eventorigin2):
         global counter, x, y, x2, y2, counter2, tool, color, stop
-        x = eventorigin2.x
-        y = eventorigin2.y
+        x, y = eventorigin2.x, eventorigin2.y
         if x < 80:
             color = colorpick(x, y, "null")
     root2.bind('<B1-Motion>', getorigin2)
@@ -184,66 +150,61 @@ def colorpick(_x, _y, inp):
             if _y > 400:
                 if _x < 40:
                     if _y < 440:
-                        color = "black"
+                        color = colors[12]
                     else:
-                        color = "red"
+                        color = colors[14]
                 else:
                     if _y < 440:
-                        color = "green"
+                        color = colors[13]
                     else:
-                        color = "blue"
+                        color = colors[15]
             elif _y > 320:
                 if _x < 40:
                     if _y < 360:
-                        color = "white"
+                        color = colors[8]
                     else:
-                        color = "#ffff00"
+                        color = colors[10]
                 else:
                     if _y < 360:
-                        color = "#ffa500"
+                        color = colors[9]
                     else:
-                        color = "#00ffff"
+                        color = colors[11]
             elif _y > 240:
                 if _x < 40:
                     if _y < 280:
-                        color = "#0000A0"
+                        color = colors[4]
                     else:
-                        color = "#800080"
+                        color = colors[6]
                 else:
                     if _y < 280:
-                        color = "#ADD8E6"
+                        color = colors[5]
                     else:
-                        color = "#FF00FF"
+                        color = colors[7]
             elif _y > 160:
                 if _x < 40:
                     if _y < 200:
-                        color = "#808000"
+                        color = colors[0]
                     else:
-                        color = "#A52A2A"
+                        color = colors[2]
                 else:
                     if _y < 200:
-                        color = "#008000"
+                        color = colors[1]
                     else:
-                        color = "#808080"
+                        color = colors[3]
     return color
 
 
-##############
+# ===============================================================================
 
 
 def clear(evt):
     global x, y, x2, y2, x3, y3, counter, tool, counter2
-    x = 0
-    y = 0
-    x2 = 0
-    y2 = 0
-    x3 = 0
-    y3 = 0
-    counter = 0
+    x, y = 0, 0
+    x2, y2 = 0, 0
+    x3, y3 = 0, 0
+    counter, counter2 = 0, 0
     tool = ''
-    counter2 = 0
-    canvas.create_rectangle((0, 0), (w, h),
-                            outline="white", fill="white")
+    canvas.create_rectangle((0, 0), (w, h), outline="white", fill="white")
 
 
 def save(evt):
