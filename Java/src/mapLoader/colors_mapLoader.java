@@ -3,23 +3,31 @@ package mapLoader;
 import java.io.File;
 import java.util.Scanner;
 
-public class colors_mapLoader {
+import static mapLoader.driver_mapLoader.COLOR_LIST;
 
-    public int length;
-    public int height;
-    public int size;
-    public int[] colorlist;
+class colors_mapLoader {
 
-    public void getFile() throws Exception {
-        File map = new File("E:\\TJHSST\\Karels-Adventure\\Java\\titanic.txt");
+    private String[] pictureList;
+    private int length;
+    private int height;
+    private int size;
+
+    colors_mapLoader(String path) throws Exception{
+        File map = new File(path);
         Scanner sc = new Scanner(map);
         length = sc.nextInt();
         height = sc.nextInt();
         size = length * height;
-        for(int i = 2; i < size; i++)
-            colorlist.
+        String[] pictureList = new String[size -2];
+        for(int i = 0; i < size; i++)
+            pictureList[i] = COLOR_LIST[sc.nextInt()];
     }
 
+    String getColor(int i){ return this.pictureList[i];}
 
+    int getLength(){ return length;}
 
+    int getHeight(){ return height;}
+
+    int getSize(){ return size;}
 }
