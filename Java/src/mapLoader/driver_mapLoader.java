@@ -15,8 +15,6 @@ class driver_mapLoader {
             "red", "blue"};
 
     public static void main(String[] args) throws Exception{
-        colors_mapLoader loader = new colors_mapLoader("E:\\TJHSST\\Karels-Adventure\\maps\\titanic.txt");
-
+        colors_mapLoader loader = new colors_mapLoader("E:\\TJHSST\\Karels-Adventure\\maps\\dad.txt");
     }
-
 }

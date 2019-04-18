@@ -3,8 +3,6 @@ package mapLoader;
 import java.io.File;
 import java.util.Scanner;
 
-import static mapLoader.driver_mapLoader.COLOR_LIST;
-
 class colors_mapLoader {
 
     private String[] pictureList;
@@ -18,12 +16,18 @@ class colors_mapLoader {
         length = sc.nextInt();
         height = sc.nextInt();
         size = length * height;
-        String[] pictureList = new String[size -2];
-        for(int i = 0; i < size; i++)
-            pictureList[i] = COLOR_LIST[sc.nextInt()];
+        String[] pictureList = new String[size];
+        for(int i = 0; i < size; i++) {
+            int a = sc.nextInt();
+            System.out.print(a);
+//            pictureList[i] = driver_mapLoader.COLOR_LIST[a];
+//            System.out.println(pictureList[i]);
+            String g = driver_mapLoader.COLOR_LIST[a];
+            System.out.println(g);
+        }
     }
 
-    String getColor(int i){ return this.pictureList[i];}
+    String getColor(int i){return this.pictureList[i];}
 
     int getLength(){ return length;}
 
