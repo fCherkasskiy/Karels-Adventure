@@ -3,27 +3,28 @@ package mapLoader;
 import java.io.File;
 import java.util.Scanner;
 
-class colorReader {
+class ColorReader {
 
-    private String[] pictureList;
+    private String[][] pictureList;
     private int length;
     private int height;
     private int size;
 
-    colorReader(String path) throws Exception{
+    ColorReader(String path) throws Exception{
         File map = new File(path);
         Scanner sc = new Scanner(map);
         length = sc.nextInt();
         height = sc.nextInt();
         size = length * height;
-        pictureList = new String[size];
-        for(int i = 0; i < size; i++) {
-            pictureList[i] = colorList.COLOR_LIST[sc.nextInt()];
+        pictureList = new String[height][length];
+        for(int a = 0; a < height; a++){
+            for(int b = 0; b < length; b++){
+                pictureList[a][b] = ColorList.COLOR_LIST[sc.nextInt()];
+            }
         }
-
     }
 
-    String getColor(int index){return this.pictureList[index];}
+    String getColor(int x, int y){ return pictureList[x][y];}
 
     int getLength(){ return length;}
 
