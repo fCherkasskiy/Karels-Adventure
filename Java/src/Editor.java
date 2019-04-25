@@ -75,7 +75,6 @@ public class Editor extends JFrame {
         this.add(saveButton);
         saveButton.addMouseListener(
                 new MouseListener() {
-
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         System.out.println("The file name you want to save it as.");
@@ -86,106 +85,65 @@ public class Editor extends JFrame {
                             p.append(yPoints+ "\n");
                             for(int i = 0; i < coloredPoints.length; i++)
                                 p.append(coloredPoints[i] + " ");
-
                         }
-                             catch (Exception except) {
-                                System.err.println("File not found.");
-                            }
+                        catch (Exception except) {
+                            System.err.println("File not found.");
+                        }
                     }
-
                     @Override
-                    public void mousePressed(MouseEvent e) {
-
-                    }
-
+                    public void mousePressed(MouseEvent e) {}
                     @Override
-                    public void mouseReleased(MouseEvent e) {
-
-                    }
-
+                    public void mouseReleased(MouseEvent e) {}
                     @Override
-                    public void mouseEntered(MouseEvent e) {
-
-                    }
-
+                    public void mouseEntered(MouseEvent e) {}
                     @Override
-                    public void mouseExited(MouseEvent e) {
-
-                    }
+                    public void mouseExited(MouseEvent e) {}
                 });
-
         JButton loadButton = new JButton();
         loadButton.setBounds(w/2+5,10,100,30);
         loadButton.setText("Load");
         this.add(loadButton);
         loadButton.addMouseListener(
                 new MouseListener() {
-
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         JOptionPane.showMessageDialog(null, "Loading not yet implemented.");
                         for(int i = 0; i < coloredPoints.length; i++)
                             coloredPoints[i] = 0;
-
                     }
-
                     @Override
-                    public void mousePressed(MouseEvent e) {
-
-                    }
-
+                    public void mousePressed(MouseEvent e) {}
                     @Override
-                    public void mouseReleased(MouseEvent e) {
-
-                    }
-
+                    public void mouseReleased(MouseEvent e) {}
                     @Override
-                    public void mouseEntered(MouseEvent e) {
-
-                    }
-
+                    public void mouseEntered(MouseEvent e) {}
                     @Override
-                    public void mouseExited(MouseEvent e) {
-
-                    }
+                    public void mouseExited(MouseEvent e) {}
                 });
-
         JButton clearButton = new JButton();
         clearButton.setBounds(w/2+105,10,100,30);
         clearButton.setText("Clear");
         this.add(clearButton);
         clearButton.addMouseListener(
                 new MouseListener() {
-
                     @Override
                     public void mouseClicked(MouseEvent e) {
                         JOptionPane.showMessageDialog(null, "Clear successful.");
                         for(int i = 0; i < coloredPoints.length; i++)
                             coloredPoints[i] = 0;
-
                     }
-
                     @Override
-                    public void mousePressed(MouseEvent e) {
-
-                    }
-
+                    public void mousePressed(MouseEvent e) {}
                     @Override
-                    public void mouseReleased(MouseEvent e) {
-
-                    }
-
+                    public void mouseReleased(MouseEvent e) {}
                     @Override
-                    public void mouseEntered(MouseEvent e) {
-
-                    }
-
+                    public void mouseEntered(MouseEvent e) {}
                     @Override
-                    public void mouseExited(MouseEvent e) {
-
-                    }
+                    public void mouseExited(MouseEvent e) {}
                 });
     }
+
+
     public class SBoard extends JPanel {
         public void paintComponent(Graphics g) {
             g.setColor(Color.LIGHT_GRAY);
@@ -225,44 +183,24 @@ public class Editor extends JFrame {
         public void mouseDragged(MouseEvent e) {
             mouseX = e.getX();
             mouseY = e.getY();
-
         }
-
         @Override
         public void mouseMoved(MouseEvent e) {
             mouseX = e.getX();
             mouseY = e.getY();
         }
     }
+
     public class Pressed implements MouseListener {
-
         @Override
-        public void mouseClicked(MouseEvent e) {
-        }
-
+        public void mouseClicked(MouseEvent e) {}
         @Override
-        public void mousePressed(MouseEvent e) {
-            mouseClicked = true;
-        }
-
+        public void mousePressed(MouseEvent e) {mouseClicked = true;}
         @Override
-        public void mouseReleased(MouseEvent e) {
-            mouseClicked = false;
-
-        }
-
+        public void mouseReleased(MouseEvent e) {mouseClicked = false;}
         @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
+        public void mouseEntered(MouseEvent e) {}
         @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
+        public void mouseExited(MouseEvent e) {}
     }
 }
-
-
-
-
