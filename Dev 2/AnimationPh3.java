@@ -27,7 +27,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
    int width=0,height=0;
    int speed=5;
    int jump=0;//50 for map, 30 for pc, 15 for long
-   int bottom=1000;//actually the top border (everything is flipped)
+   int bottom;//200 actually the top border (everything is flipped)
    int top = 180;//same as above
    int left;//=width-30;
    String filename = "";
@@ -38,17 +38,20 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
    boolean firstrun=true;
    Integer[] groundy;
    private Integer[] gnd;
-   int x = 0, y = bottom, velx = 0, vely = 0, g = 2;
+   int x = 0, y, velx = 0, vely = 0, g = 2;
    public AnimationPh3(String file,String type, int platform,int j,int sc) throws Exception
    {
       filename = file;
       maptype = type;
+      System.out.println(maptype);
       Scanner infile = new Scanner(new File(filename));
       jump = j;
       scale = sc;
       
       width = Integer.parseInt(infile.next())*scale;
       height = Integer.parseInt(infile.next())*scale;
+      bottom = height;
+      y=bottom;
       left = width-30;
       longi = width/scale;
       latit = height/scale;
@@ -154,13 +157,14 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       }
       if (getGnd()!=null)
       {
+         //System.out.print(maptype);
          firstrun=false;
          grounddata=getGnd();
          int slope=0;
-         System.out.println(x);
+         //System.out.println(x);
          slope=Math.abs(grounddata[x/scale]-grounddata[xr]);
-         System.out.println(Integer.toString(slope)+"   "+Integer.toString(grounddata[x/scale])+"   "+Integer.toString(grounddata[xr]));
-         if ((maptype=="map"&&jumping==true)||(maptype=="parcour"&&g==2))//for parcour do g==2
+         //System.out.println(Integer.toString(slope)+"   "+Integer.toString(grounddata[x/scale])+"   "+Integer.toString(grounddata[xr]));
+         if ((maptype.equals("map")&&jumping==true)||(maptype.equals("parcour")&&g==2))//for parcour do g==2
          {  
             top=Math.max(grounddata[x/scale],grounddata[xr])*scale+24;//if you're jumping
             //System.out.println("jump");
@@ -174,7 +178,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
             top=Math.max(grounddata[x/scale],grounddata[xr])*scale+24;//if all about are false
          }
       }
-      if ((-scale>yr-Math.max(grounddata[xr]*scale,grounddata[x/scale]*scale))&&maptype=="parcour")
+      if ((-scale>yr-Math.max(grounddata[xr]*scale,grounddata[x/scale]*scale))&&maptype.equals("parcour"))
       {
          top=0; // for parcour map
       }
@@ -210,7 +214,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       x=x+velx;
       repaint();
       //System.out.println(yr-Math.max(grounddata[xr]*scale,grounddata[x/scale]*scale));
-      if (yr<=5*scale)
+      if (yr<=4*scale)
          {
             System.out.print("You died. Awaiting respawn.");
             System.exit(0);
@@ -245,6 +249,6 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
    public void keyReleased(KeyEvent e)
    {
       velx=0;
-      vely=0;
+      //vely=0;
    }
 }

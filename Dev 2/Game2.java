@@ -20,8 +20,30 @@ import javax.swing.JComponent;
 
 public class Game2 
 {
+    Scanner infile;
+    int width;
+    int height;
+    String filename;
+    String maptype;
+    int platform;
+    int jump;
+    int scale;
     public Game2() throws Exception
     {
+        infile = new Scanner(new File("leveldata.txt"));
+        width = Integer.parseInt(infile.next());
+        height = Integer.parseInt(infile.next());
+        filename = infile.next();
+        maptype = infile.next();
+        platform = Integer.parseInt(infile.next());
+        jump = Integer.parseInt(infile.next());
+        scale = Integer.parseInt(infile.next());
+        System.out.println(width);
+        System.out.println(height);
+        System.out.println(filename);
+        System.out.println(maptype);
+        System.out.println(jump);
+        System.out.println(scale);
         JFrame display = new JFrame();
 
         display.setTitle("Title");
@@ -35,7 +57,7 @@ public class Game2
 
         display.setAlwaysOnTop(true);
         display.setResizable(false);
-        display.setSize(1510, 630);
+        display.setSize(width, height);
         display.setVisible(true);
         display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -52,12 +74,12 @@ public class Game2
         
     }
 
-    public static void addALittleMan(JFrame jFrame) throws Exception {
-       String filename = "map.txt";
-       String maptype = "map";
-       int platform = 4;
-       int jump = 50;
-       int scale = 15;
+    public void addALittleMan(JFrame jFrame) throws Exception {
+       // String filename = "long.txt";
+//        String maptype = "parcour";
+//        int platform = 4;
+//        int jump = 15;
+//        int scale = 10;
        AnimationPh3 per = new AnimationPh3(filename,maptype,platform,jump,scale); //send filename,maptype, width, and height, platform color, jump, scale
        //per.setBackground(new Color(0,0,0,0));
        per.setOpaque(false);
