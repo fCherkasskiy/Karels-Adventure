@@ -180,14 +180,10 @@ public class Editor extends JFrame {
             
          }
          if(mouseX >= 0 && mouseX < cBoxSize){
-            //for(int i = 0; i < 16; i++){
-               //if(mouseY > i*cBoxSize+30 && mouseY < i*cBoxSize+cBoxSize+30){
-                  //g.setColor(Color.decode(colorArr[i]));
-                  g.fillRect(15,35,15,15);
-                  if(mouseClicked)
-                     colorNum = Math.round(mouseY/cBoxSize);
-               //}
-            //}
+                  if(mouseClicked){
+                     if((int)Math.round((double)mouseY/(double)cBoxSize)-1 < 16)
+                        colorNum = (int)Math.round((double)mouseY/(double)cBoxSize)-1;
+                        }
          }
          for(int i = 0; i < xPoints; i++){
             for(int j = 0; j < yPoints; j++){
