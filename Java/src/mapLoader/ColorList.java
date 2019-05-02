@@ -1,7 +1,7 @@
 package mapLoader;
 
-class ColorList {
-    static String[] COLOR_LIST = {
+public class ColorList {
+    public static String[] COLOR_LIST = {
                 "#808000", "#008000",
                 "#A52A2A", "#808080",
 
@@ -12,5 +12,6 @@ class ColorList {
                 "#FFFF00", "#00FFFF",
 
                 "#000000", "#00FF00",
-                "#FF0000", "#0000FF"};
+                "#FF0000", "#0000FF"
+    };
 }
