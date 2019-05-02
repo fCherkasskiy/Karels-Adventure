@@ -9,7 +9,7 @@ public class Driver extends JPanel{
     private static ColorReader loader;
 
     public static void main(String[] args) throws Exception{
-        loader = new ColorReader(JOptionPane.showInputDialog(null, "Enter the path and filename using '\\':", "Path"));
+        loader = new ColorReader("E:\\TJHSST\\Karels-Adventure\\maps\\" + JOptionPane.showInputDialog(null, "Enter the path and filename using '\\':", "Path"));
         blockSize = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter block size", "10"));
         Driver driver = new Driver();
         JFrame frame = new JFrame("Epic");
