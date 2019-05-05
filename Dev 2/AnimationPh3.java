@@ -25,7 +25,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
    int scale=0;
    String maptype="";
    int width=0,height=0;
-   int speed=5;
+   int speed=8;
    int jump=0;//50 for map, 30 for pc, 15 for long
    int bottom;//200 actually the top border (everything is flipped)
    int top = 180;//same as above
@@ -38,6 +38,9 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
    boolean firstrun=true;
    Integer[] groundy;
    private Integer[] gnd;
+   int border=0;//350
+   int fakex=0;
+   int fakey=0;
    int x = 0, y, velx = 0, vely = 0, g = 2;
    public AnimationPh3(String file,String type, int platform,int j,int sc) throws Exception
    {
@@ -52,7 +55,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       height = Integer.parseInt(infile.next())*scale;
       bottom = height;
       y=bottom;
-      left = width-30;
+      left = width-border-scale;
       longi = width/scale;
       latit = height/scale;
       addKeyListener(this);
@@ -114,7 +117,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       
       try
       {
-         Map2 bg = new Map2(filename, scale);
+         Map2 bg = new Map2(filename, scale,x-fakex,fakey);
          bg.paintComponent(h);
          bg.setOpaque(true);
       }
@@ -124,7 +127,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       super.paintComponent(h);
       //System.out.println("did this work?");
       ImageIcon i = new ImageIcon("D:\\Users\\Ari\\Documents\\TJHSST\\a_game\\north20.png");
-      i.paintIcon(this, h, x, height-y);
+      i.paintIcon(this, h, fakex, height-y-fakey);
       //h.setColor(Color.RED);
       //h.fillRect(x,height-y,10,10);
       tm.start();
@@ -141,19 +144,26 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
    }
    public void actionPerformed(ActionEvent e)
    {
+      if (fakex<350)
+      {
+         fakex=x;
+      }
+      fakey=0;
       int xr=x+19;
       xr=xr/scale;
       int yr=y+19;
       Integer[] grounddata=new Integer[longi];
-      if (x < 0)
+      if (x < border)
       {
          velx=0;
-         x=0;
+         x=border;
       }
       if (x > left)
       {
          velx=0;
          x=left;
+         System.out.println("Success");
+         System.exit(0);
       }
       if (getGnd()!=null)
       {
@@ -175,7 +185,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          }
          else
          {
-            top=Math.max(grounddata[x/scale],grounddata[xr])*scale+24;//if all about are false
+            top=Math.max(grounddata[x/scale],grounddata[xr])*scale+24;//if all above are false
          }
       }
       if ((-scale>yr-Math.max(grounddata[xr]*scale,grounddata[x/scale]*scale))&&maptype.equals("parcour"))
@@ -185,12 +195,14 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       if (y > bottom)
       {
          //System.out.println("antigravity!!!");
-         y=bottom;
-         if (vely<0)
-         {
-            vely=0;
-         }
-         g=0;
+         // y=bottom;
+//          if (vely<0)
+//          {
+//             vely=0;
+//          }
+//          g=0;
+         System.out.println(y);
+         fakey=height-y;
       }
       if (y < top)
       {
@@ -198,6 +210,10 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          if (vely<0)
          {
             vely=0;
+            if (jumping==true)
+            {
+               speed=speed;
+            }
             jumping=false;
          }
          g=0;
@@ -210,11 +226,10 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          y=y+vely;
       }
 
-
       x=x+velx;
       repaint();
       //System.out.println(yr-Math.max(grounddata[xr]*scale,grounddata[x/scale]*scale));
-      if (yr<=4*scale)
+      if (yr<=30)
          {
             System.out.print("You died. Awaiting respawn.");
             System.exit(0);
@@ -239,6 +254,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          if (y<=top)
          {
             vely=jump;
+            speed=speed;
             jumping=true;
             System.out.println("up");
          }

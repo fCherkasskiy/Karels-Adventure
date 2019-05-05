@@ -30,7 +30,7 @@ public class Game2
     int scale;
     public Game2() throws Exception
     {
-        infile = new Scanner(new File("leveldata.txt"));
+        infile = new Scanner(new File("leveldata1.txt"));
         width = Integer.parseInt(infile.next());
         height = Integer.parseInt(infile.next());
         filename = infile.next();
@@ -57,7 +57,8 @@ public class Game2
 
         display.setAlwaysOnTop(true);
         display.setResizable(false);
-        display.setSize(width, height);
+        //display.setSize(width, height+100);
+        display.setSize(610, 630);
         display.setVisible(true);
         display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

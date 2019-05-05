@@ -25,9 +25,13 @@ public class Map2 extends JPanel
    int height;
    int scale;
    int len;
+   int transx = 0;
+   int transy = 0;
    private Integer[] map;
-   public Map2(String file, int sc) throws Exception
+   public Map2(String file, int sc, int x, int y) throws Exception
    {
+      
+      
       //this.setOpaque(true);
       //this.setSize(1000,400);
       //System.out.println("sup dud");
@@ -35,11 +39,18 @@ public class Map2 extends JPanel
       Scanner infile = new Scanner(new File(filename));
       int longi=Integer.parseInt(infile.next());
       int latit=Integer.parseInt(infile.next());
+           
       len = longi*latit;
       map = new Integer[len];
       width = longi*10;
       height = latit*10;
+      
+      
+      
       scale = sc;
+      
+      transx=x;
+      transy=y;
       //System.out.println(Integer.toString(len)+" "+Integer.toString(longi)+" "+Integer.toString(latit));
       Integer[] mapfile = new Integer[len];
       int val=0;
@@ -71,6 +82,11 @@ public class Map2 extends JPanel
    {
       //System.out.println("paitning");
       super.paintComponent(h);
+      for (int s=0;s<10000;s++)
+      {
+         h.setColor(new Color(173,216,230,255));
+         h.fillRect(s%100*scale,Math.round(s/100)*scale,scale,scale);
+      }
       Integer[] disp = new Integer[len];
       disp=getMap();
       //System.out.println("Starting to render map.");
@@ -97,7 +113,9 @@ public class Map2 extends JPanel
          if (disp[i]==14){r=165;b=42;g=42;}//brown
          if (disp[i]==15){r=128;b=128;g=128;}//grey
          h.setColor(new Color(r,g,b,254));
-         h.fillRect((i%(width/10))*scale,(i/(width/10))*scale,scale,scale);
+         //System.out.println(transy);
+         //System.out.println((i/(width/10))*scale+transy);
+         h.fillRect((i%(width/10))*scale-transx,(i/(width/10))*scale-transy,scale,scale);
       }
    }   
 }
