@@ -1,48 +1,30 @@
 import java.awt.Color;
-import java.awt.Canvas;
 import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 
-import javax.swing.JFrame;
 import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.ImageIcon;
-import javax.swing.*;
 
-import java.lang.Math.*;
 import java.io.*;
 import java.util.*;
-import javax.swing.JOptionPane;
-import javax.swing.JComponent;
 
 public class Map2 extends JPanel
-//Cavnas,JPanel  
+//Cavnas,JPanel
 {
-   int width=1000,height=400;
-   int speed=5;
-   int jump=30;
-   int bottom=height;//actually the top border (everything is flipped)
-   int top = 400;//same as above
-   int left=width-30;
-   int jumptm=0;
-   int len=width/10*height/10;
-   int scale=1;
+   private int width = 1000, height = 400;
+   private int bottom = height;//actually the top border (everything is flipped)
+   private int len = width / 10 * height / 10;
+   int scale = 15;
    private Integer[] map = new Integer[len];
    int x = 0, y = bottom, velx = 0, vely = 0, g = 2;
-   public Map2() throws Exception
-   {
+   Map2() throws Exception {
       //this.setOpaque(true);
       this.setSize(1000,400);
-      System.out.println("sup dud");
-      String filename = "/Users/fc/Documents/School/Karels-Adventure/maps/map.txt";//JOptionPane.showInputDialog("What file?");
+      //System.out.println("sup dud");
+      String filename = "map.txt";//JOptionPane.showInputDialog("What file?");
       Scanner infile = new Scanner(new File(filename));
       int longi=Integer.parseInt(infile.next());
       int latit=Integer.parseInt(infile.next());
       int len = longi*latit;
-      System.out.println(Integer.toString(len)+" "+Integer.toString(longi)+" "+Integer.toString(latit));
+      //System.out.println(Integer.toString(len)+" "+Integer.toString(longi)+" "+Integer.toString(latit));
       Integer[] mapfile = new Integer[len];
       int val=0;
       int token1=0;
@@ -51,35 +33,29 @@ public class Map2 extends JPanel
          mapfile[val]=token1;
          val++;
          //System.out.println(Integer.toString(val) +"    "+ Integer.toString(token1));
-      
+
       }
       setMap(mapfile);
-   }  
-   public static void main(String[] args) throws Exception
-   {
    }
-   public void setMap(Integer[] bgd)
-   {
+
+   private void setMap(Integer[] bgd) {
       map=bgd;
-      System.out.println("hello from set");
+      //System.out.println("hello from set");
       repaint();
    }
-   public Integer[] getMap()
-   {
-      System.out.println("hello from get");
+   private Integer[] getMap() {
+      //System.out.println("hello from get");
       return map;
    }
-   public void paintComponent(Graphics h)
-   {
+   public void paintComponent(Graphics h) {
       super.paintComponent(h);
       Integer[] disp = new Integer[len];
       disp=getMap();
-      System.out.println("Starting to render map.");
+      //System.out.println("Starting to render map.");
       int r=0;
       int g=0;
       int b=0;
-      for (int i=0; i<len;i++)
-      {
+      for (int i=0; i<len;i++) {
          //System.out.println(i);
          if (disp[i]==0){r=0;b=0;g=0;}
          if (disp[i]==1){r=255;b=255;g=255;}
@@ -98,7 +74,7 @@ public class Map2 extends JPanel
          if (disp[i]==14){r=165;b=42;g=42;}//brown
          if (disp[i]==15){r=128;b=128;g=128;}//grey
          h.setColor(new Color(r,g,b,254));
-         h.fillRect((i%(width/10))*10*scale,(i/(width/10))*10*scale,10*scale,10*scale);
+         h.fillRect((i % (width / 10)) * scale,(i / (width / 10)) * scale, scale, scale);
       }
-   }   
+   }
 }

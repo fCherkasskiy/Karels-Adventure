@@ -1,5 +1,5 @@
 public class Main implements Runnable {
-   Editor editor = new Editor();
+   private Editor editor = new Editor();
    public static void main(String[] args){
        new Thread(new Main()).start();
    }
@@ -8,7 +8,6 @@ public class Main implements Runnable {
        while(true){
            editor.repaint();
        }
-
    }
 }
 
