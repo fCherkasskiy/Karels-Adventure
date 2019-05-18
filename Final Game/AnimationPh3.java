@@ -11,6 +11,9 @@ import javax.swing.JPanel;
 import javax.swing.Timer;
 import javax.swing.ImageIcon;
 import javax.swing.*;
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.*;
 
 import java.lang.Math.*;
 import java.io.*;
@@ -126,7 +129,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       }
       super.paintComponent(h);
       //System.out.println("did this work?");
-      ImageIcon i = new ImageIcon("D:\\Users\\Ari\\Documents\\TJHSST\\a_game\\north20.png");
+      ImageIcon i = new ImageIcon("./Sprites/north20.png");
       i.paintIcon(this, h, fakex, height-y-fakey);
       //h.setColor(Color.RED);
       //h.fillRect(x,height-y,10,10);
@@ -160,10 +163,15 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       }
       if (x > left)
       {
-         velx=0;
-         x=left;
          System.out.println("Success");
-         System.exit(0);
+         x=left;
+         velx=0;
+         try
+         {
+            Menu success= new Menu();
+         }
+         catch(Exception a)
+         {}
       }
       if (getGnd()!=null)
       {
@@ -229,10 +237,13 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       x=x+velx;
       repaint();
       //System.out.println(yr-Math.max(grounddata[xr]*scale,grounddata[x/scale]*scale));
-      if (yr<=30)
+      if (yr<=50)
          {
             System.out.print("You died. Awaiting respawn.");
-            System.exit(0);
+            x=0;
+            y=600;
+            fakex=0;
+            fakey=0;
          }
    }
    public void keyPressed(KeyEvent e)

@@ -28,9 +28,9 @@ public class Game2
     int platform;
     int jump;
     int scale;
-    public Game2() throws Exception
+    public Game2(String level) throws Exception
     {
-        infile = new Scanner(new File("./Maps/leveldata1.txt"));
+        infile = new Scanner(new File(level));
         width = Integer.parseInt(infile.next());
         height = Integer.parseInt(infile.next());
         filename = infile.next();
@@ -46,35 +46,20 @@ public class Game2
         System.out.println(scale);
         JFrame display = new JFrame();
 
-        display.setTitle("Title");
-        
+        display.setTitle("Level");
 
-        // Deseaneaza doar daca linia asta apare inainte the setSize()
-        addALittleMan(display);
-        //addBackground(display);
-        //addALittleMan(display);
-        
+        addALittleMan(display);      
 
         display.setAlwaysOnTop(true);
         display.setResizable(false);
-        //display.setSize(width, height+100);
         display.setSize(610, 630);
         display.setVisible(true);
-        display.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+        display.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
     
     // public static void main(String[] args) throws Exception {
 //         Game2 game = new Game2();
 //     }
-
-    public static void addBackground(JFrame jFrame) throws Exception {
-        //Map2 bg = new Map2();
-        //bg.setOpaque(false);
-        //jFrame.add(bg);
-        
-    }
-
     public void addALittleMan(JFrame jFrame) throws Exception {
        // String filename = "long.txt";
 //        String maptype = "parcour";

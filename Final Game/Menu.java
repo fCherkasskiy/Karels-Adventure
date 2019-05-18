@@ -34,21 +34,21 @@ public class Menu extends JFrame
    }
    public Menu() throws Exception
    {
-      this.setTitle("Karel's Adventure Level Creator");
-      this.setSize(600,600);
+      this.setTitle("Karel's Adventure");
+      this.setSize(610,630);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
       this.setVisible(true);
-      this.setResizable(true);
+      this.setResizable(false);
       JButton gamebutton = new JButton("Play Levels");
-      gamebutton.setBounds(200,100,200,100);
+      gamebutton.setBounds(205,100,200,100);
       gamebutton.addActionListener(new Listener1());
       this.add(gamebutton);
       JButton builderbutton = new JButton("Make Levels");
-      builderbutton.setBounds(200,200,200,100);
+      builderbutton.setBounds(205,200,200,100);
       builderbutton.addActionListener(new Listener2());
       this.add(builderbutton);
       JButton userbutton = new JButton("Play Custom Levels");
-      userbutton.setBounds(200,300,200,100);
+      userbutton.setBounds(205,300,200,100);
       userbutton.addActionListener(new Listener3());
       this.add(userbutton);
    }
@@ -58,7 +58,7 @@ public class Menu extends JFrame
          {
             try
             {
-               Game2 game = new Game2();
+               Game2 game = new Game2("./Maps/leveldata1.txt");
             }
             catch(Exception a)
             {
@@ -79,7 +79,9 @@ public class Menu extends JFrame
          {
             try
             {
-               Game2 user = new Game2();
+               String level = JOptionPane.showInputDialog(null, "Enter level name");
+               level = "./User Maps/"+ level+".txt";
+               Game2 user = new Game2(level);
             }
             catch(Exception a)
             {

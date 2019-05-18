@@ -37,7 +37,7 @@ public class Editor extends JFrame {
    
       this.setTitle("Karel's Adventure Level Creator");
       this.setSize(2000,2000);
-      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       this.setVisible(true);
       this.setResizable(true);
    
