@@ -65,7 +65,7 @@ public class Editor extends JFrame {
                 public void mouseClicked(MouseEvent e) {
                   String name = JOptionPane.showInputDialog("The file name you want to save it as.");
                   try {
-                     PrintStream p = new PrintStream(new File(name + ".txt"));
+                     PrintStream p = new PrintStream(new File("./User Maps/"+name + ".txt"));
                      p.append(xPoints+ "\n");
                      p.append(yPoints+ "\n");
                      for(int i = 0; i < coloredPoints.length; i++)
