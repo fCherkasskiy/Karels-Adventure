@@ -40,6 +40,10 @@ public class Editor extends JFrame {
       this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       this.setVisible(true);
       this.setResizable(true);
+      this.setFocusable(true);
+      this.requestFocus();
+      this.setFocusTraversalKeysEnabled(false);
+
    
    
       SBoard board = new SBoard();
@@ -68,6 +72,10 @@ public class Editor extends JFrame {
                      PrintStream p = new PrintStream(new File("./User Maps/"+name + ".txt"));
                      p.append(xPoints+ "\n");
                      p.append(yPoints+ "\n");
+                     p.append("map"+"\n");
+                     p.append(4+"\n");
+                     p.append(25+"\n");
+                     p.append(30+"\n");
                      for(int i = 0; i < coloredPoints.length; i++)
                         p.append(coloredPoints[i] + " ");
                   
@@ -201,6 +209,7 @@ public class Editor extends JFrame {
                g.fillRect(spacing + i*boxSize+100,spacing + j*boxSize+50, boxSize-2*spacing, boxSize-2*spacing);
             }
          }
+      repaint();
       }
    }
 

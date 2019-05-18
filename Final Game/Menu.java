@@ -34,23 +34,28 @@ public class Menu extends JFrame
    }
    public Menu() throws Exception
    {
+      
+      this.setLayout(new BorderLayout());
       this.setTitle("Karel's Adventure");
       this.setSize(610,630);
-      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+      JButton gamebutton = new JButton("Play Levels");
+      //gamebutton.setBounds(205,100,200,100);
+      gamebutton.setPreferredSize(new Dimension(200, 200));
+      gamebutton.addActionListener(new Listener1());
+      this.add(gamebutton, BorderLayout.NORTH);
+      JButton builderbutton = new JButton("Make Levels");
+      //builderbutton.setBounds(205,200,200,100);
+      builderbutton.setPreferredSize(new Dimension(200, 200));
+      builderbutton.addActionListener(new Listener2());
+      this.add(builderbutton,BorderLayout.CENTER);
+      JButton userbutton = new JButton("Play Custom Levels");
+      //userbutton.setBounds(205,300,200,100);
+      userbutton.setPreferredSize(new Dimension(200, 200));
+      userbutton.addActionListener(new Listener3());
+      this.add(userbutton,BorderLayout.SOUTH);
       this.setVisible(true);
       this.setResizable(false);
-      JButton gamebutton = new JButton("Play Levels");
-      gamebutton.setBounds(205,100,200,100);
-      gamebutton.addActionListener(new Listener1());
-      this.add(gamebutton);
-      JButton builderbutton = new JButton("Make Levels");
-      builderbutton.setBounds(205,200,200,100);
-      builderbutton.addActionListener(new Listener2());
-      this.add(builderbutton);
-      JButton userbutton = new JButton("Play Custom Levels");
-      userbutton.setBounds(205,300,200,100);
-      userbutton.addActionListener(new Listener3());
-      this.add(userbutton);
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    }
    private class Listener1 implements ActionListener
       {
@@ -58,11 +63,11 @@ public class Menu extends JFrame
          {
             try
             {
-               Game2 game = new Game2("./Maps/leveldata1.txt");
+               Game2 game = new Game2("./Maps/long.txt");
             }
             catch(Exception a)
             {
-               System.out.println("oops");
+               System.out.println(a.getStackTrace()[0].getLineNumber());
             }
          }
       }
@@ -85,7 +90,7 @@ public class Menu extends JFrame
             }
             catch(Exception a)
             {
-               System.out.println("oops");
+               System.out.println(a.getStackTrace()[0].getLineNumber());
             }         
          }
       }

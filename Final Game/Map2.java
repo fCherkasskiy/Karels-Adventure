@@ -36,10 +36,13 @@ public class Map2 extends JPanel
       //this.setSize(1000,400);
       //System.out.println("sup dud");
       String filename = file;//JOptionPane.showInputDialog("What file?");
-      Scanner infile = new Scanner(new File("./Maps/"+filename));
+      Scanner infile = new Scanner(new File(filename));
       int longi=Integer.parseInt(infile.next());
       int latit=Integer.parseInt(infile.next());
-           
+      for (int i=0;i<4;i++)
+      {
+         Object asdf = infile.next();
+      }
       len = longi*latit;
       map = new Integer[len];
       width = longi*10;

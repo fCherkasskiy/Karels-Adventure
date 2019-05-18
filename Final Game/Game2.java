@@ -33,7 +33,7 @@ public class Game2
         infile = new Scanner(new File(level));
         width = Integer.parseInt(infile.next());
         height = Integer.parseInt(infile.next());
-        filename = infile.next();
+        filename=level;
         maptype = infile.next();
         platform = Integer.parseInt(infile.next());
         jump = Integer.parseInt(infile.next());
@@ -46,7 +46,7 @@ public class Game2
         System.out.println(scale);
         JFrame display = new JFrame();
 
-        display.setTitle("Level");
+        display.setTitle(level);
 
         addALittleMan(display);      
 
