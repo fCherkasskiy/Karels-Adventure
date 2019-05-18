@@ -64,9 +64,9 @@ public class Game2
 
     }
     
-    public static void main(String[] args) throws Exception {
-        Game2 game = new Game2();
-    }
+    // public static void main(String[] args) throws Exception {
+//         Game2 game = new Game2();
+//     }
 
     public static void addBackground(JFrame jFrame) throws Exception {
         //Map2 bg = new Map2();
