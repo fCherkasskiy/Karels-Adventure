@@ -30,7 +30,7 @@ public class Game2
     int scale;
     public Game2() throws Exception
     {
-        infile = new Scanner(new File("leveldata1.txt"));
+        infile = new Scanner(new File("./Maps/leveldata1.txt"));
         width = Integer.parseInt(infile.next());
         height = Integer.parseInt(infile.next());
         filename = infile.next();

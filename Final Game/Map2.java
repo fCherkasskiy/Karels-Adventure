@@ -36,7 +36,7 @@ public class Map2 extends JPanel
       //this.setSize(1000,400);
       //System.out.println("sup dud");
       String filename = file;//JOptionPane.showInputDialog("What file?");
-      Scanner infile = new Scanner(new File(filename));
+      Scanner infile = new Scanner(new File("./Maps/"+filename));
       int longi=Integer.parseInt(infile.next());
       int latit=Integer.parseInt(infile.next());
            

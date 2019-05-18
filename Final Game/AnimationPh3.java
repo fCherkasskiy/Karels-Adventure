@@ -47,7 +47,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       filename = file;
       maptype = type;
       System.out.println(maptype);
-      Scanner infile = new Scanner(new File(filename));
+      Scanner infile = new Scanner(new File("./Maps/"+filename));
       jump = j;
       scale = sc;
       
