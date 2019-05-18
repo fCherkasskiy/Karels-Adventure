@@ -1,7 +1,7 @@
-700
-700
-scrolltest.txt
+600
+630
+hey.txt.txt
 map
 4
 30
-100
+20

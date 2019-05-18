@@ -2,16 +2,16 @@ package mapLoader;
 
 public class ColorList {
     public static String[] COLOR_LIST = {
+                "#000000", "#ffffff",
+                "#ff0000", "#0000ff",
+
+                "#00ff00", "#00ffff",
+                "#ffff00", "#ffa500",
+
+                "#0000a0", "#add8e6",
+                "#800080", "#ff00ff",
+
                 "#808000", "#008000",
-                "#A52A2A", "#808080",
-
-                "#0000A0", "#ADD8E6",
-                "#800080", "#FF00FF",
-
-                "#FFFFFF", "#FFA500",
-                "#FFFF00", "#00FFFF",
-
-                "#000000", "#00FF00",
-                "#FF0000", "#0000FF"
+                "#a52a2a", "#808080"
     };
 }

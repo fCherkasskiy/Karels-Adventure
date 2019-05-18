@@ -26,14 +26,14 @@ public class Editor extends JFrame {
    String[] colorArr = mapLoader.ColorList.COLOR_LIST;
    public Editor() {
    
-      xPoints = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter height of level (20,24,30,40,60).", "20"));  // Read user input
-      yPoints = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter width of level (a big number will go off the sceen)", "150")); // Read user input
+      yPoints = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter height of level (20,24,30,40,60).", "20"));  // Read user input
+      xPoints = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter width of level (a big number will go off the sceen)", "150")); // Read user input
       cBoxSize = 50;
       w = cBoxSize*17;
       h = cBoxSize*17;
       coloredPoints = new int[xPoints*yPoints];
       for(int i = 0; i < coloredPoints.length; i++)
-         coloredPoints[i] = 8;
+         coloredPoints[i] = 1;
    
       this.setTitle("Karel's Adventure Level Creator");
       this.setSize(2000,2000);
