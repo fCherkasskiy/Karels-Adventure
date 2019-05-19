@@ -17,9 +17,20 @@ import java.util.*;
 import javax.swing.*;
 import javax.swing.JOptionPane;
 import javax.swing.JComponent;
+import javax.swing.*;
+import javax.swing.plaf.basic.BasicOptionPaneUI;
+import javax.swing.JCheckBox;
+import java.awt.event.*;
+import java.awt.*;
+import java.util.Scanner;
+import java.io.File;
+import java.io.PrintStream;
+import java.lang.Math.*;
+
 
 public class Game2 
 {
+    JFrame display;
     Scanner infile;
     int width;
     int height;
@@ -44,19 +55,43 @@ public class Game2
         System.out.println(maptype);
         System.out.println(jump);
         System.out.println(scale);
-        JFrame display = new JFrame();
+        display = new JFrame();
 
         display.setTitle(level);
 
-        addALittleMan(display);      
+              
 
         display.setAlwaysOnTop(true);
         display.setResizable(false);
         display.setSize(610, 630);
         display.setVisible(true);
         display.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        display.setLayout(new BorderLayout());
+        JButton closebutton = new JButton("EXIT TO MENU");
+        closebutton.setPreferredSize(new Dimension(10, 15));
+        closebutton.addActionListener(new Listener1());
+        closebutton.setBackground(Color.RED);
+        closebutton.setOpaque(true);
+        display.add(closebutton, BorderLayout.NORTH);
+        addALittleMan(display);
+
     }
-    
+    private class Listener1 implements ActionListener
+      {
+         public void actionPerformed(ActionEvent e)
+         {
+            try
+            {
+               Menu exit = new Menu(false);
+               display.dispose();
+            }
+            catch(Exception a)
+            {
+               System.out.println(a.getStackTrace()[0].getLineNumber());
+            }
+         }
+      }
+
     // public static void main(String[] args) throws Exception {
 //         Game2 game = new Game2();
 //     }

@@ -62,7 +62,8 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       }
       bottom = height;
       y=bottom;
-      left = width-border-scale;
+      left = width-10-scale;
+      System.out.println(left);
       longi = width/scale;
       latit = height/scale;
       addKeyListener(this);
@@ -165,17 +166,21 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          velx=0;
          x=border;
       }
-      if (x > left)
+      //System.out.println(xr);
+      if (x >= left)
       {
          System.out.println("Success");
-         x=left;
+         x=0;
+         fakex=0;
          velx=0;
          try
          {
             Menu success= new Menu(true);
          }
          catch(Exception a)
-         {}
+         {
+            System.out.println("oops");
+         }
       }
       if (getGnd()!=null)
       {

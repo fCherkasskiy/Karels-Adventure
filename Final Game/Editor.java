@@ -26,8 +26,8 @@ public class Editor extends JFrame {
    String[] colorArr = mapLoader.ColorList.COLOR_LIST;
    public Editor() {
    
-      yPoints = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter height of level (20,24,30,40,60).", "20"));  // Read user input
-      xPoints = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter width of level (a big number will go off the sceen)", "150")); // Read user input
+      yPoints = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter height of level (Only options: 20,24,30,40,60):", "20"));  // Read user input
+      xPoints = Integer.parseInt(JOptionPane.showInputDialog(null, "Enter width of level (a big number will go off the sceen):", "150")); // Read user input
       cBoxSize = 50;
       w = cBoxSize*17;
       h = cBoxSize*17;
@@ -75,7 +75,7 @@ public class Editor extends JFrame {
                      p.append("map"+"\n");
                      p.append(4+"\n");
                      p.append(25+"\n");
-                     p.append(30+"\n");
+                     p.append(600/yPoints+"\n");
                      for(int i = 0; i < coloredPoints.length; i++)
                         p.append(coloredPoints[i] + " ");
                   
