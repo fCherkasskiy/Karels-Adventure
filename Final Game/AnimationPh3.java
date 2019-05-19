@@ -172,7 +172,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          velx=0;
          try
          {
-            Menu success= new Menu();
+            Menu success= new Menu(true);
          }
          catch(Exception a)
          {}

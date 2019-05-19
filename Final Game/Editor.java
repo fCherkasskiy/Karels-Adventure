@@ -67,7 +67,7 @@ public class Editor extends JFrame {
             
                @Override
                 public void mouseClicked(MouseEvent e) {
-                  String name = JOptionPane.showInputDialog("The file name you want to save it as.");
+                  String name = JOptionPane.showInputDialog("Name your file: ");
                   try {
                      PrintStream p = new PrintStream(new File("./User Maps/"+name + ".txt"));
                      p.append(xPoints+ "\n");
@@ -115,9 +115,23 @@ public class Editor extends JFrame {
             
                @Override
                 public void mouseClicked(MouseEvent e) {
-                  JOptionPane.showMessageDialog(null, "Loading not yet implemented.");
-                  for(int i = 0; i < coloredPoints.length; i++)
-                     coloredPoints[i] = 8;
+                  String name = JOptionPane.showInputDialog("What file would you like to open?:");
+                  try {
+                     Scanner infile = new Scanner(new File("./User Maps/"+name + ".txt"));
+                     xPoints=Integer.parseInt(infile.next());
+                     yPoints=Integer.parseInt(infile.next());
+                     for (int k=0; k<4; k++)
+                     {
+                        Object thing = infile.next();
+                     }
+                     coloredPoints = new int[xPoints*yPoints];
+                     for(int i = 0; i < xPoints*yPoints; i++)
+                        coloredPoints[i]=Integer.parseInt(infile.next());
+                  
+                  }
+                  catch (Exception except) {
+                     System.err.println("File not found.");
+                  }
                
                }
             
@@ -153,7 +167,7 @@ public class Editor extends JFrame {
                 public void mouseClicked(MouseEvent e) {
                   JOptionPane.showMessageDialog(null, "Clear successful.");
                   for(int i = 0; i < coloredPoints.length; i++)
-                     coloredPoints[i] = 8;
+                     coloredPoints[i] = 1;
                
                }
             
