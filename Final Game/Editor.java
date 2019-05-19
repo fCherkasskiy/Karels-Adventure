@@ -68,13 +68,15 @@ public class Editor extends JFrame {
                @Override
                 public void mouseClicked(MouseEvent e) {
                   String name = JOptionPane.showInputDialog("Name your file: ");
+                  String type = JOptionPane.showInputDialog("Is this a parcour or normal map ('parcour' or 'map')","parcour");
+                  int jump = Integer.parseInt(JOptionPane.showInputDialog("Input a whole number jump velocity","25"));
                   try {
                      PrintStream p = new PrintStream(new File("./User Maps/"+name + ".txt"));
                      p.append(xPoints+ "\n");
                      p.append(yPoints+ "\n");
-                     p.append("map"+"\n");
+                     p.append(type+"\n");
                      p.append(4+"\n");
-                     p.append(25+"\n");
+                     p.append(jump+"\n");
                      p.append(600/yPoints+"\n");
                      for(int i = 0; i < coloredPoints.length; i++)
                         p.append(coloredPoints[i] + " ");

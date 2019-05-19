@@ -1,33 +1,16 @@
-import java.awt.Color;
-import java.awt.Canvas;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.ImageIcon;
-
-import java.lang.Math.*;
 import java.io.*;
-import java.util.*;
-import javax.swing.*;
-import javax.swing.JOptionPane;
-import javax.swing.JComponent;
-import javax.swing.*;
-import javax.swing.plaf.basic.BasicOptionPaneUI;
-import javax.swing.JCheckBox;
-import java.awt.event.*;
 import java.awt.*;
-import java.util.Scanner;
-import java.io.File;
-import java.io.PrintStream;
+import java.awt.event.*;
+import javax.swing.*;
+import java.util.*;
 import java.lang.Math.*;
-
-
+/*****************************************************************
+	* A Game is a JFrame and a Driver that collects and stores information about its properties.
+	* A Game knows how to setup a layout with a level and an exit button.
+   * A Game also knows how to add Animations and Maps to its frame.
+	* @author Ari Bobesh
+	* @version 2.0
+	****************************************************************/
 public class Game2 
 {
     JFrame display;
@@ -39,6 +22,11 @@ public class Game2
     int platform;
     int jump;
     int scale;
+    /************************************************************* 
+	 * Constructs a jframe with properties specified by reading level file.
+	 * @param level    level filename
+    * @throws FileNotFoundException     throws an exception if the file does not exist
+	 **************************************************************/
     public Game2(String level) throws Exception
     {
         infile = new Scanner(new File(level));
@@ -49,18 +37,8 @@ public class Game2
         platform = Integer.parseInt(infile.next());
         jump = Integer.parseInt(infile.next());
         scale = Integer.parseInt(infile.next());
-        System.out.println(width);
-        System.out.println(height);
-        System.out.println(filename);
-        System.out.println(maptype);
-        System.out.println(jump);
-        System.out.println(scale);
         display = new JFrame();
-
         display.setTitle(level);
-
-              
-
         display.setAlwaysOnTop(true);
         display.setResizable(false);
         display.setSize(610, 630);
@@ -78,6 +56,10 @@ public class Game2
     }
     private class Listener1 implements ActionListener
       {
+         /***************************************************************
+      	* Closes the game upon the press of the exit button
+         * @param e	 action event that the button records
+      	**************************************************************/
          public void actionPerformed(ActionEvent e)
          {
             try
@@ -91,20 +73,15 @@ public class Game2
             }
          }
       }
-
-    // public static void main(String[] args) throws Exception {
-//         Game2 game = new Game2();
-//     }
+    /***************************************************************
+	 * Adds a karel animation to game frame.
+    * Requests user focus to the animation and disables focus-altering keys.
+	 * @param jFrame	 passes the JFrame to which the character should be added
+    * @throws ClassNotFoundException     throws an exception if the class does not exist
+	 **************************************************************/
     public void addALittleMan(JFrame jFrame) throws Exception {
-       // String filename = "long.txt";
-//        String maptype = "parcour";
-//        int platform = 4;
-//        int jump = 15;
-//        int scale = 10;
        AnimationPh3 per = new AnimationPh3(filename,maptype,platform,jump,scale); //send filename,maptype, width, and height, platform color, jump, scale
-       //per.setBackground(new Color(0,0,0,0));
        per.setOpaque(false);
-       //per.setBackground(new Color(0,0,0,90));
        jFrame.add(per);
        per.setFocusable(true);
        per.requestFocus();

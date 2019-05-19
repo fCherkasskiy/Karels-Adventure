@@ -1,50 +1,49 @@
-import java.awt.Color;
-import java.awt.Canvas;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.ImageIcon;
-import javax.swing.*;
-import javax.swing.*;
+import java.io.*;
 import java.awt.*;
 import java.awt.event.*;
-
+import javax.swing.*;
+import java.util.Scanner;
+import java.io.PrintStream;
 import java.lang.Math.*;
-import java.io.*;
-import java.util.*;
-import javax.swing.JOptionPane;
-import javax.swing.JComponent;
-
-public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
-//Cavnas,JPanel  
+/*****************************************************************
+	* An Animation is a character that reads and stores information about its properties.
+	* An Animation knows its simulated location in x and y as well as it's display location.
+   * An Animation also knows how to draw Maps.
+	* @author Ari Bobesh
+	* @version 3.0
+	****************************************************************/
+public class AnimationPh3 extends JPanel implements ActionListener, KeyListener 
 {
    Timer tm = new Timer(30,this);
    int scale=0;
    String maptype="";
    int width=0,height=0;
    int speed=8;
-   int jump=0;//50 for map, 30 for pc, 15 for long
-   int bottom;//200 actually the top border (everything is flipped)
-   int top = 180;//same as above
-   int left;//=width-30;
+   int jump=0;
+   int bottom;
+   int top = 180;
+   int left;
    String filename = "";
-   int jumptm=0;
-   int longi;//=width/scale;
-   int latit;//=height/scale;
+   int longi;
+   int latit;
    boolean jumping=false;
    boolean firstrun=true;
    Integer[] groundy;
    private Integer[] gnd;
-   int border=0;//350
+   int border=0;
    int fakex=0;
    int fakey=0;
    int x = 0, y, velx = 0, vely = 0, g = 2;
+   /************************************************************* 
+	 * Constructs a sprite with interactive properties defined by the level file.
+    * Also parses the level file for data relevant to the sprite and saves it.
+	 * @param file    level filename
+    * @param type    level type (parcour or map)
+    * @param platform    the color of the tangible platforms
+    * @param j    jump velocity
+    * @param sc    level scale factor
+    * @throws FileNotFoundException     throws an exception if the file does not exist
+	 **************************************************************/
    public AnimationPh3(String file,String type, int platform,int j,int sc) throws Exception
    {
       filename = file;
@@ -66,12 +65,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       System.out.println(left);
       longi = width/scale;
       latit = height/scale;
-      addKeyListener(this);
-      //this.setOpaque(false);
-      //this.setBackground(new Color(0,0,0,0));
-      //this.setSize(10,10);
-      //String filename = "long.txt";//JOptionPane.showInputDialog("What file?");
-      
+      addKeyListener(this);      
       int len = longi*latit;
       System.out.println(Integer.toString(len)+" "+Integer.toString(longi)+" "+Integer.toString(latit));
       Integer[] mapfile = new Integer[len];
@@ -81,7 +75,6 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          token1 = Integer.parseInt(infile.next());
          mapfile[val]=token1;
          val++;
-         //System.out.println(Integer.toString(val) +"    "+ Integer.toString(token1));
       }
       groundy = new Integer[longi];
       for (int i=0;i<longi;i++)
@@ -94,7 +87,6 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          int p = 0;
          for (int i=0;i<len;i++)
          {
-            //System.out.println(i);
             if (i%longi==s)
             {
                if (mapfile[i]==platform)
@@ -110,19 +102,14 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          s++;
       }
       saveGnd(groundy);
-      for (int r=0; r<longi;r++)
-      {
-         //System.out.print(Integer.toString(r)+" ");
-         //System.out.println(per.groundy[r]);
-      }
    }
-   public static void main(String[] args) throws Exception
-   {
-
-   }
+   /***************************************************************
+	* Paints the moving sprite as well as the background.
+   * Catches ClassNotFoundException
+   * @param h	 graphics object 
+	**************************************************************/
    public void paintComponent(Graphics h)
-   {
-      
+   {     
       try
       {
          Map2 bg = new Map2(filename, scale,x-fakex,fakey);
@@ -133,23 +120,30 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       {
       }
       super.paintComponent(h);
-      //System.out.println("did this work?");
       ImageIcon i = new ImageIcon("./Sprites/north20.png");
       i.paintIcon(this, h, fakex, height-y-fakey);
-      //h.setColor(Color.RED);
-      //h.fillRect(x,height-y,10,10);
       tm.start();
    }
+   /***************************************************************
+	* Sets an array of ground y values.
+   * @param grnd	 ground array input
+	**************************************************************/
    public void saveGnd(Integer[] grnd)
    {
-      //System.out.println("hello from aniset");
       gnd=grnd;
    }
+   /***************************************************************
+	* Gets the array of ground y values.
+   * @return ground y-value array
+	**************************************************************/
    public Integer[] getGnd()
    {
-      //System.out.println("hello from aniget");
       return gnd;
    }
+   /***************************************************************
+	* In charge of keeping karel within the map boundaries and processing map interactions.
+   * @param e	 action event that karel has moved
+	**************************************************************/
    public void actionPerformed(ActionEvent e)
    {
       if (fakex<350)
@@ -166,7 +160,6 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          velx=0;
          x=border;
       }
-      //System.out.println(xr);
       if (x >= left)
       {
          System.out.println("Success");
@@ -183,22 +176,18 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
          }
       }
       if (getGnd()!=null)
-      {
-         //System.out.print(maptype);
+      {;
          firstrun=false;
          grounddata=getGnd();
          int slope=0;
-         //System.out.println(x);
          slope=Math.abs(grounddata[x/scale]-grounddata[xr]);
-         //System.out.println(Integer.toString(slope)+"   "+Integer.toString(grounddata[x/scale])+"   "+Integer.toString(grounddata[xr]));
          if ((maptype.equals("map")&&jumping==true)||(maptype.equals("parcour")&&g==2))//for parcour do g==2
          {  
             top=Math.max(grounddata[x/scale],grounddata[xr])*scale+24;//if you're jumping
-            //System.out.println("jump");
          }
          else if (slope>2 && ((velx==-speed && (Math.max(grounddata[x/scale],grounddata[xr])==grounddata[x/scale]))||(velx==speed && Math.max(grounddata[x/scale],grounddata[xr])==grounddata[xr])))//too steep and (not gravity right or not gravity left or not jumping)
          {
-            velx=-velx;//is you're not jumping, and ur slope is too steep
+            velx=-velx;//is you're not jumping, and the slope is too steep
          }
          else
          {
@@ -211,13 +200,6 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       }
       if (y > bottom)
       {
-         //System.out.println("antigravity!!!");
-         // y=bottom;
-//          if (vely<0)
-//          {
-//             vely=0;
-//          }
-//          g=0;
          System.out.println(y);
          fakey=height-y;
       }
@@ -237,7 +219,6 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       }
       if (y>=top)
       {
-         //System.out.println("gravity!!");
          g=2;
          vely=vely-g;
          y=y+vely;
@@ -245,7 +226,6 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
 
       x=x+velx;
       repaint();
-      //System.out.println(yr-Math.max(grounddata[xr]*scale,grounddata[x/scale]*scale));
       if (yr<=50)
          {
             System.out.print("You died. Awaiting respawn.");
@@ -255,6 +235,10 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
             fakey=0;
          }
    }
+   /***************************************************************
+	* A key listener that moves karel based on key pressed
+   * @param e	 key event that user has pressed
+   *************************************************************/
    public void keyPressed(KeyEvent e)
    {
       int c = e.getKeyCode();
@@ -262,12 +246,10 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       if (c == KeyEvent.VK_LEFT)
       {
          velx=-speed;
-         System.out.println("left");
       }
       if (c == KeyEvent.VK_RIGHT)
       {
          velx=speed;
-         System.out.println("right");
       }
       if (c == KeyEvent.VK_UP)
       {
@@ -276,15 +258,25 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
             vely=jump;
             speed=speed;
             jumping=true;
-            System.out.println("up");
          }
          
       }
    }
-   public void keyTyped(KeyEvent e){}
+   /***************************************************************
+	* A key listener that stops karel's horizontal movement when a key is released.
+   * @param e	 key event that user has released
+   *************************************************************/
    public void keyReleased(KeyEvent e)
    {
-      velx=0;
-      //vely=0;
+      int c = e.getKeyCode();
+      if (c == KeyEvent.VK_LEFT)
+      {
+         velx=0;
+      }
+      if (c == KeyEvent.VK_RIGHT)
+      {
+         velx=0;
+      }
    }
+   public void keyTyped(KeyEvent e){}
 }

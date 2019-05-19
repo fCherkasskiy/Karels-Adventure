@@ -1,25 +1,11 @@
-import java.awt.Color;
-import java.awt.Canvas;
-import java.awt.Graphics;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.Timer;
-import javax.swing.ImageIcon;
-import javax.swing.*;
-
-import java.lang.Math.*;
 import java.io.*;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 import java.util.*;
-import javax.swing.JOptionPane;
-import javax.swing.JComponent;
+import java.lang.Math.*;
 
 public class Map2 extends JPanel
-//Cavnas,JPanel  
 {
    int width;
    int height;
@@ -30,12 +16,7 @@ public class Map2 extends JPanel
    private Integer[] map;
    public Map2(String file, int sc, int x, int y) throws Exception
    {
-      
-      
-      //this.setOpaque(true);
-      //this.setSize(1000,400);
-      //System.out.println("sup dud");
-      String filename = file;//JOptionPane.showInputDialog("What file?");
+      String filename = file;
       Scanner infile = new Scanner(new File(filename));
       int longi=Integer.parseInt(infile.next());
       int latit=Integer.parseInt(infile.next());
