@@ -4,7 +4,13 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import java.lang.Math.*;
-
+/*****************************************************************
+	* A Map is a background that reads and stores information about its colors.
+	* A Map knows its display location.
+   * A Map also knows how to draw Maps.
+	* @author Ari Bobesh
+	* @version 3.0
+	****************************************************************/
 public class Map2 extends JPanel
 {
    int width;
@@ -14,6 +20,14 @@ public class Map2 extends JPanel
    int transx = 0;
    int transy = 0;
    private Integer[] map;
+   /************************************************************* 
+	 * Constructs a map with colors defined by the file and x and y displacement by parameters from Animation.
+	 * @param file    level filename
+    * @param sc    level scale factor
+    * @param x    x displacement for map scrolling
+     @param y    y displacement for map scrolling
+    * @throws FileNotFoundException     throws an exception if the file does not exist
+	 **************************************************************/
    public Map2(String file, int sc, int x, int y) throws Exception
    {
       String filename = file;
@@ -28,14 +42,9 @@ public class Map2 extends JPanel
       map = new Integer[len];
       width = longi*10;
       height = latit*10;
-      
-      
-      
       scale = sc;
-      
       transx=x;
       transy=y;
-      //System.out.println(Integer.toString(len)+" "+Integer.toString(longi)+" "+Integer.toString(latit));
       Integer[] mapfile = new Integer[len];
       int val=0;
       int token1=0;
@@ -43,28 +52,32 @@ public class Map2 extends JPanel
          token1 = Integer.parseInt(infile.next());
          mapfile[val]=token1;
          val++;
-         //System.out.println(Integer.toString(val) +"    "+ Integer.toString(token1));
-      
       }
       setMap(mapfile);
-   }  
-   public static void main(String[] args) throws Exception
-   {
    }
+   /***************************************************************
+	* Sets an array of color values.
+   * @param bgd	 background array input
+	**************************************************************/  
    public void setMap(Integer[] bgd)
    {
       map=bgd;
-      //System.out.println("hello from set");
       repaint();
    }
+   /***************************************************************
+	* Gets the array of background color values.
+   * @return background color value array
+	**************************************************************/
    public Integer[] getMap()
    {
-      //System.out.println("hello from get");
       return map;
    }
+   /***************************************************************
+	* Paints the background based on the color array.
+   * @param h	 graphics object 
+	**************************************************************/
    public void paintComponent(Graphics h)
    {
-      //System.out.println("paitning");
       super.paintComponent(h);
       for (int s=0;s<10000;s++)
       {
@@ -73,13 +86,11 @@ public class Map2 extends JPanel
       }
       Integer[] disp = new Integer[len];
       disp=getMap();
-      //System.out.println("Starting to render map.");
       int r=0;
       int g=0;
       int b=0;
       for (int i=0; i<len;i++)
       {
-         //System.out.println(i);
          if (disp[i]==0){r=0;b=0;g=0;}
          if (disp[i]==1){r=255;b=255;g=255;}
          if (disp[i]==2){r=255;b=0;g=0;}
@@ -97,8 +108,6 @@ public class Map2 extends JPanel
          if (disp[i]==14){r=165;b=42;g=42;}//brown
          if (disp[i]==15){r=128;b=128;g=128;}//grey
          h.setColor(new Color(r,g,b,254));
-         //System.out.println(transy);
-         //System.out.println((i/(width/10))*scale+transy);
          h.fillRect((i%(width/10))*scale-transx,(i/(width/10))*scale-transy,scale,scale);
       }
    }   
