@@ -62,7 +62,9 @@ public class Menu extends JFrame
          {
             try
             {
-               Game2 game = new Game2("./Maps/long.txt");
+               String level = JOptionPane.showInputDialog(null, "Enter level name");
+               level = "./Maps/"+ level+".txt";
+               Game2 game = new Game2(level);
                dispose();
             }
             catch(Exception a)
@@ -87,6 +89,7 @@ public class Menu extends JFrame
                String level = JOptionPane.showInputDialog(null, "Enter level name");
                level = "./User Maps/"+ level+".txt";
                Game2 user = new Game2(level);
+               dispose();
             }
             catch(Exception a)
             {
