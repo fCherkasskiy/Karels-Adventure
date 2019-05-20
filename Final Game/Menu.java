@@ -75,8 +75,8 @@ public class Menu extends JFrame implements ActionListener
       JButton s5 = new JButton("Old Valley Ranch");
       JButton s6 = new JButton("Parcour");
       JButton s7 = new JButton("Pure Skill");
-      JButton s8 = new JButton("8");
-      JButton s9 = new JButton("9");
+      JButton s8 = new JButton("Pure Skill 2");
+      JButton s9 = new JButton("Titanic");
       s1.setBackground(Color.RED);
       s1.setFont(new Font("Sans Serif", Font.BOLD, 20));
       s2.setFont(new Font("Sans Serif", Font.BOLD, 20));
@@ -202,10 +202,10 @@ public class Menu extends JFrame implements ActionListener
             Game2 game6 = new Game2("./Maps/Pure Skill.txt");
             break;
          case "8":
-            Game2 game7 = new Game2("./Maps/Pirate's Cove.txt");
+            Game2 game7 = new Game2("./Maps/Pure Skill 2.txt");
             break;
          case "9":
-            Game2 game8 = new Game2("./Maps/Pirate's Cove.txt");
+            Game2 game8 = new Game2("./Maps/Titanic.txt");
             break;
          default:
             System.out.println("Failed to open built-in map.");
