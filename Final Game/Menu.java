@@ -38,24 +38,27 @@ public class Menu extends JFrame implements ActionListener
       if (success==true)
       {
          JLabel label = new JLabel("Success!!! You completed the level.",SwingConstants.CENTER);
-         label.setFont(new Font("Serif", Font.BOLD, 35));
-         label.setForeground(Color.black);
+         label.setFont(new Font("Sans Serif", Font.BOLD, 35));
          this.add(label, BorderLayout.SOUTH);
       }
-      JButton gamebutton = new JButton("Play Levels");
+      JButton gamebutton = new JButton("<html><center>Play<br>Preset Levels<center></html>");
+      gamebutton.setFont(new Font("Sans Serif", Font.BOLD, 20));
       gamebutton.setPreferredSize(new Dimension(200, 200));
       gamebutton.addActionListener(new Listener1());
       this.add(gamebutton, BorderLayout.WEST);
-      JButton builderbutton = new JButton("Make Levels");
+      JButton builderbutton = new JButton("<html><center>Make<br>Custom Levels<center></html>");
+      builderbutton.setFont(new Font("Sans Serif", Font.BOLD, 20));
       builderbutton.setPreferredSize(new Dimension(200, 200));
       builderbutton.addActionListener(new Listener2());
       this.add(builderbutton,BorderLayout.EAST);
-      JButton userbutton = new JButton("Play Custom Levels");
+      JButton userbutton = new JButton("<html><center>Play<br>Custom Levels<center></html>");
+      userbutton.setFont(new Font("Sans Serif", Font.BOLD, 20));
       userbutton.setPreferredSize(new Dimension(200, 200));
       userbutton.addActionListener(new Listener3());
       this.add(userbutton,BorderLayout.CENTER);
       JButton closebutton = new JButton("EXIT GAME");
-      closebutton.setPreferredSize(new Dimension(10, 15));
+      closebutton.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      closebutton.setPreferredSize(new Dimension(10, 50));
       closebutton.addActionListener(new Listener4());
       closebutton.setBackground(Color.RED);
       closebutton.setOpaque(true);
@@ -68,12 +71,22 @@ public class Menu extends JFrame implements ActionListener
       JButton s1 = new JButton("Back to Menu");
       JButton s2 = new JButton("Pirate's Cove");
       JButton s3 = new JButton("Polar Express");
-      JButton s4 = new JButton("Stairway To Heaven");
+      JButton s4 = new JButton("<html><center>"+"Stairway To"+"<br>"+"Heaven"+"<center></html>");
       JButton s5 = new JButton("Old Valley Ranch");
       JButton s6 = new JButton("Parcour");
-      JButton s7 = new JButton("7");
+      JButton s7 = new JButton("Pure Skill");
       JButton s8 = new JButton("8");
       JButton s9 = new JButton("9");
+      s1.setBackground(Color.RED);
+      s1.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s2.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s3.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s4.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s5.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s6.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s7.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s8.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s9.setFont(new Font("Sans Serif", Font.BOLD, 20));
       s1.setActionCommand("1");
       s2.setActionCommand("2");
       s3.setActionCommand("3");
@@ -106,6 +119,7 @@ public class Menu extends JFrame implements ActionListener
       submenu.setResizable(false);
       submenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       submenu.setSize(610,630);
+      this.requestFocus();
    }
    /************************************************************* 
 	 * Unhides the submenu, which lets the use choose built-in levels.
@@ -185,7 +199,7 @@ public class Menu extends JFrame implements ActionListener
             Game2 game5 = new Game2("./Maps/Parcour.txt");
             break;
          case "7":
-            Game2 game6 = new Game2("./Maps/Pirate's Cove.txt");
+            Game2 game6 = new Game2("./Maps/Pure Skill.txt");
             break;
          case "8":
             Game2 game7 = new Game2("./Maps/Pirate's Cove.txt");
