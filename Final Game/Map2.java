@@ -5,12 +5,12 @@ import javax.swing.*;
 import java.util.*;
 import java.lang.Math.*;
 /*****************************************************************
-	* A Map is a background that reads and stores information about its colors.
-	* A Map knows its display location.
-   * A Map also knows how to draw Maps.
-	* @author Ari Bobesh
-	* @version 3.0
-	****************************************************************/
+* A Map is a background that reads and stores information about its colors.
+* A Map knows its display location.
+* A Map also knows how to draw Maps.
+* @author Ari Bobesh
+* @version 3.0
+****************************************************************/
 public class Map2 extends JPanel
 {
    int width;

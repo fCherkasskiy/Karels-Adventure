@@ -4,14 +4,29 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import java.lang.Math.*;
-
+/*****************************************************************
+* A Menu is a driver that acts upon the user's clicking.
+* A Menu helps the user by passing data to other classes.
+* @author Ari Bobesh
+* @version 1.0
+****************************************************************/
 public class Menu extends JFrame implements ActionListener
 {
    JFrame submenu;
+    /************************************************************* 
+	 * Runs the Menu constructor.
+	 * @param args    required for main method
+    * @throws FileNotFoundException     throws an exception if the file does not exist
+	 **************************************************************/
    public static void main(String[] args) throws Exception {
         Menu main = new Menu(false);
    }
-   public Menu(boolean success) throws Exception
+   /************************************************************* 
+	 * Constructs a Menu JFrame with pre-define buttons, all with action listeners.
+    * Also makes an invisible submenu.
+	 * @param success    whether or not the user has just completed a level, causes the Success!!! banner to pop up
+	 **************************************************************/
+   public Menu(boolean success)
    {
       java.awt.Window win[] = java.awt.Window.getWindows(); 
       for(int i=0;i<win.length;i++){ 
@@ -47,8 +62,7 @@ public class Menu extends JFrame implements ActionListener
       this.add(closebutton, BorderLayout.NORTH);
       this.setVisible(true);
       this.setResizable(false);
-      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-      
+      this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
       submenu = new JFrame();
       submenu.setLayout(new GridLayout(3,3));
       JButton s1 = new JButton("Back to Menu");
@@ -93,29 +107,19 @@ public class Menu extends JFrame implements ActionListener
       submenu.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
       submenu.setSize(610,630);
    }
-//    public void close()
-//    {
-//       WindowEvent winClosingEvent = new WindowEvent(this, WindowEvent.WINDOW_CLOSING);
-//       Toolkit.getDefaultToolkit().getSystemEventQueue().postEvent(winClosingEvent);
-//    }
+   /************************************************************* 
+	 * Unhides the submenu, which lets the use choose built-in levels.
+    **************************************************************/
    private class Listener1 implements ActionListener
       {
          public void actionPerformed(ActionEvent e)
          {
             submenu.setVisible(true);
-            // try
-//             {
-//                String level = JOptionPane.showInputDialog(null, "Enter level name");
-//                level = "./Maps/"+ level+".txt";
-//                Game2 game = new Game2(level);
-//                dispose();
-//             }
-//             catch(Exception a)
-//             {
-//                System.out.println(a.getStackTrace()[0].getLineNumber());
-//             }
          }
       }
+   /************************************************************* 
+   * Calls the editor class
+   **************************************************************/
    private class Listener2 implements ActionListener
       {
          public void actionPerformed(ActionEvent e)
@@ -123,6 +127,9 @@ public class Menu extends JFrame implements ActionListener
             Editor editor = new Editor();
          }
       }
+   /************************************************************* 
+   * Lets the user input the name of their custom level before calling Game
+   **************************************************************/
    private class Listener3 implements ActionListener
       {
          public void actionPerformed(ActionEvent e)
@@ -140,6 +147,9 @@ public class Menu extends JFrame implements ActionListener
             }         
          }
       }
+   /************************************************************* 
+   * Lets the user exit the application
+   **************************************************************/
    private class Listener4 implements ActionListener
       {
          public void actionPerformed(ActionEvent e)
@@ -147,6 +157,10 @@ public class Menu extends JFrame implements ActionListener
             System.exit(0);
          }
       }
+   /************************************************************* 
+   * Reads the submenu's button press and opens a level or returns to the menu.
+   * @param e    action event of button being pressed
+   **************************************************************/
    public void actionPerformed(ActionEvent e) {
       System.out.println("Action: "+e.getActionCommand());
       try
