@@ -10,16 +10,149 @@ import java.lang.Math.*;
 * @author Ari Bobesh
 * @version 1.0
 ****************************************************************/
+
+// Java program to play an Audio 
+// file using Clip Object 
+import java.io.File; 
+import java.io.IOException; 
+import java.util.Scanner; 
+  
+import javax.sound.sampled.AudioInputStream; // These imports are all for sound.
+import javax.sound.sampled.AudioSystem; 
+import javax.sound.sampled.Clip; 
+import javax.sound.sampled.LineUnavailableException; 
+import javax.sound.sampled.UnsupportedAudioFileException; 
+
+class AudioPlayer  
+{ 
+  
+    // to store current position 
+   Long currentFrame; 
+   Clip clip; 
+      
+    // current status of clip 
+   String status; 
+      
+   AudioInputStream audioStream; 
+   static String filePath; 
+  
+    // constructor to initialize streams and clip 
+   public AudioPlayer() 
+        throws UnsupportedAudioFileException, 
+        IOException, LineUnavailableException  
+   { 
+        // create AudioInputStream object 
+      audioStream =  
+                AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile()); 
+          
+        // create clip reference 
+      clip = AudioSystem.getClip(); 
+          
+        // open audioStream to the clip 
+      clip.open(audioStream); 
+          
+      clip.loop(Clip.LOOP_CONTINUOUSLY); 
+   } 
+  
+      
+    // Work as the user enters his choice 
+      
+   public void gotoChoice(int c) 
+            throws IOException, LineUnavailableException, UnsupportedAudioFileException  
+   { 
+      switch (c)  
+      { 
+         case 1: 
+            pause(); 
+            break; 
+         case 2: 
+            resumeAudio(); 
+            break; 
+      
+      } 
+      
+   } 
+      
+    // Method to play the audio 
+   public void play()  
+   { 
+        //start the clip 
+      clip.start(); 
+          
+      status = "play"; 
+   } 
+      
+    // Method to pause the audio 
+   public void pause()  
+   { 
+      if (status.equals("paused"))  
+      { 
+         System.out.println("audio is already paused"); 
+         return; 
+      } 
+      this.currentFrame =  
+         this.clip.getMicrosecondPosition(); 
+      clip.stop(); 
+      status = "paused"; 
+   } 
+      
+    // Method to resume the audio 
+   public void resumeAudio() throws UnsupportedAudioFileException, 
+                                IOException, LineUnavailableException  
+   { 
+      if (status.equals("play"))  
+      { 
+         System.out.println("Audio is already being played"); 
+         return; 
+      } 
+      clip.close(); 
+      resetAudioStream(); 
+      clip.setMicrosecondPosition(currentFrame); 
+      this.play(); 
+   } 
+      
+      
+    // Method to reset audio stream 
+   public void resetAudioStream() throws UnsupportedAudioFileException, IOException, 
+                                            LineUnavailableException  
+   { 
+      audioStream = AudioSystem.getAudioInputStream( 
+         new File(filePath).getAbsoluteFile()); 
+      clip.open(audioStream); 
+      clip.loop(Clip.LOOP_CONTINUOUSLY); 
+   } 
+  
+} 
+
+
+
+
 public class Menu extends JFrame implements ActionListener
 {
    JFrame submenu;
+   static AudioPlayer audioPlayer;
+   boolean choice = true;
     /************************************************************* 
 	 * Runs the Menu constructor.
 	 * @param args    required for main method
     * @throws FileNotFoundException     throws an exception if the file does not exist
 	 **************************************************************/
    public static void main(String[] args) throws Exception {
-        Menu main = new Menu(false);
+      Menu main = new Menu(false);
+      try
+      { 
+         AudioPlayer.filePath = "music.wav";  // Plays the music file continuously.
+         audioPlayer = new AudioPlayer(); 
+         audioPlayer.play();
+              
+      }  
+          
+      catch (Exception ex)  
+      { 
+         System.out.println("Error with playing sound."); 
+         ex.printStackTrace(); 
+          
+      } 
    }
    /************************************************************* 
 	 * Constructs a Menu JFrame with pre-define buttons, all with action listeners.
@@ -63,29 +196,59 @@ public class Menu extends JFrame implements ActionListener
       closebutton.setBackground(Color.RED);
       closebutton.setOpaque(true);
       this.add(closebutton, BorderLayout.NORTH);
+      
+   
       this.setVisible(true);
       this.setResizable(false);
       this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); 
       submenu = new JFrame();
       submenu.setLayout(new GridLayout(3,3));
-      JButton[] s = new JButton[9];
-      s[0] = new JButton("Back to Menu");
-      s[1] = new JButton("Pirate's Cove");
-      s[2] = new JButton("Polar Express");
-      s[3] = new JButton("<html><center>"+"Stairway To"+"<br>"+"Heaven"+"<center></html>");
-      s[4] = new JButton("Old Valley Ranch");
-      s[5] = new JButton("Parcour");
-      s[6] = new JButton("Pure Skill");
-      s[7] = new JButton("Pure Skill 2");
-      s[8] = new JButton("Titanic");
-      s[0].setBackground(Color.RED);
-      for (int k=0; k<9;k++)
-      {
-         s[k].setFont(new Font("Sans Serif", Font.BOLD, 20));
-         s[k].setActionCommand(Integer.toString(k+1));
-         submenu.add(s[k]);
-         s[k].addActionListener(this);
-      }
+      JButton s1 = new JButton("Back to Menu");
+      JButton s2 = new JButton("Pirate's Cove");
+      JButton s3 = new JButton("Polar Express");
+      JButton s4 = new JButton("<html><center>"+"Stairway To"+"<br>"+"Heaven"+"<center></html>");
+      JButton s5 = new JButton("Old Valley Ranch");
+      JButton s6 = new JButton("Parcour");
+      JButton s7 = new JButton("Pure Skill");
+      JButton s8 = new JButton("8");
+      JButton s9 = new JButton("9");
+      s1.setBackground(Color.RED);
+      s1.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s2.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s3.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s4.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s5.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s6.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s7.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s8.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s9.setFont(new Font("Sans Serif", Font.BOLD, 20));
+      s1.setActionCommand("1");
+      s2.setActionCommand("2");
+      s3.setActionCommand("3");
+      s4.setActionCommand("4");
+      s5.setActionCommand("5");
+      s6.setActionCommand("6");
+      s7.setActionCommand("7");
+      s8.setActionCommand("8");
+      s9.setActionCommand("9");
+      submenu.add(s1);
+      submenu.add(s2);
+      submenu.add(s3);
+      submenu.add(s4);
+      submenu.add(s5);
+      submenu.add(s6);
+      submenu.add(s7);
+      submenu.add(s8);
+      submenu.add(s9);
+      s1.addActionListener(this);
+      s2.addActionListener(this);
+      s3.addActionListener(this);
+      s4.addActionListener(this);
+      s5.addActionListener(this);
+      s6.addActionListener(this);
+      s7.addActionListener(this);
+      s8.addActionListener(this);
+      s9.addActionListener(this);
       submenu.setTitle("Level Submenu");
       submenu.setVisible(false);
       submenu.setResizable(false);
@@ -97,53 +260,53 @@ public class Menu extends JFrame implements ActionListener
 	 * Unhides the submenu, which lets the use choose built-in levels.
     **************************************************************/
    private class Listener1 implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
       {
-         public void actionPerformed(ActionEvent e)
-         {
-            submenu.setVisible(true);
-         }
+         submenu.setVisible(true);
       }
+   }
    /************************************************************* 
    * Calls the editor class
    **************************************************************/
    private class Listener2 implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
       {
-         public void actionPerformed(ActionEvent e)
-         {
-            Editor editor = new Editor();
-         }
+         Editor editor = new Editor();
       }
+   }
    /************************************************************* 
    * Lets the user input the name of their custom level before calling Game
    **************************************************************/
    private class Listener3 implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
       {
-         public void actionPerformed(ActionEvent e)
+         try
          {
-            try
-            {
-               String level = JOptionPane.showInputDialog(null, "Enter level name");
-               level = "./User Maps/"+ level+".txt";
-               Game2 user = new Game2(level);
-               dispose();
-            }
-            catch(Exception a)
-            {
-               System.out.println(a.getStackTrace()[0].getLineNumber());
-            }         
+            String level = JOptionPane.showInputDialog(null, "Enter level name");
+            level = "./User Maps/"+ level+".txt";
+            Game2 user = new Game2(level);
+            dispose();
          }
+         catch(Exception a)
+         {
+            System.out.println(a.getStackTrace()[0].getLineNumber());
+         }         
       }
+   }
    /************************************************************* 
    * Lets the user exit the application
    **************************************************************/
    private class Listener4 implements ActionListener
+   {
+      public void actionPerformed(ActionEvent e)
       {
-         public void actionPerformed(ActionEvent e)
-         {
-            System.exit(0);
-         }
+         System.exit(0);
       }
-   /************************************************************* 
+   }
+      /************************************************************* 
    * Reads the submenu's button press and opens a level or returns to the menu.
    * @param e    action event of button being pressed
    **************************************************************/
@@ -152,35 +315,35 @@ public class Menu extends JFrame implements ActionListener
       try
       {
          switch (e.getActionCommand()) {
-         case "1":
-            submenu.dispose();
-            break;
-         case "2":
-            Game2 game1 = new Game2("./Maps/Pirate's Cove.txt");
-            break;
-         case "3":
-            Game2 game2 = new Game2("./Maps/Polar Express.txt");
-            break;
-         case "4":
-            Game2 game3 = new Game2("./Maps/Stairway To Heaven.txt");
-            break;
-         case "5":
-            Game2 game4 = new Game2("./Maps/Old Valley Ranch.txt");
-            break;
-         case "6":
-            Game2 game5 = new Game2("./Maps/Parcour.txt");
-            break;
-         case "7":
-            Game2 game6 = new Game2("./Maps/Pure Skill.txt");
-            break;
-         case "8":
-            Game2 game7 = new Game2("./Maps/Pure Skill 2.txt");
-            break;
-         case "9":
-            Game2 game8 = new Game2("./Maps/Titanic.txt");
-            break;
-         default:
-            System.out.println("Failed to open built-in map.");
+            case "1":
+               submenu.dispose();
+               break;
+            case "2":
+               Game2 game1 = new Game2("./Maps/Pirate's Cove.txt");
+               break;
+            case "3":
+               Game2 game2 = new Game2("./Maps/Polar Express.txt");
+               break;
+            case "4":
+               Game2 game3 = new Game2("./Maps/Stairway To Heaven.txt");
+               break;
+            case "5":
+               Game2 game4 = new Game2("./Maps/Old Valley Ranch.txt");
+               break;
+            case "6":
+               Game2 game5 = new Game2("./Maps/Parcour.txt");
+               break;
+            case "7":
+               Game2 game6 = new Game2("./Maps/Pure Skill.txt");
+               break;
+            case "8":
+               Game2 game7 = new Game2("./Maps/Pirate's Cove.txt");
+               break;
+            case "9":
+               Game2 game8 = new Game2("./Maps/Pirate's Cove.txt");
+               break;
+            default:
+               System.out.println("Failed to open built-in map.");
          }
       }
       catch(Exception a)
