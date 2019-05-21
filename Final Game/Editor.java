@@ -7,22 +7,21 @@ import java.util.Scanner;
 import java.io.File;
 import java.io.PrintStream;
 import java.lang.Math.*;
-//import mapLoader.ColorList.COLOR_LIST;
 
 public class Editor extends JFrame {
        
-   int w = 2000;
-   int h = 1000;
-   int xPoints = 200;
-   int yPoints = 100;
+   int w;
+   int h;
+   static int xPoints;
+   static int yPoints;
    int spacing = 1;
    int boxSize = 9;
-   int cBoxSize = 95;
+   int cBoxSize;
    int mouseX;
    int mouseY;
    boolean mouseClicked;
    int colorNum;
-   int[] coloredPoints = new int[xPoints*yPoints];
+   static int[] coloredPoints;
    String[] colorArr = mapLoader.ColorList.COLOR_LIST;
    public Editor() {
    
@@ -43,7 +42,7 @@ public class Editor extends JFrame {
       this.setFocusable(true);
       this.requestFocus();
       this.setFocusTraversalKeysEnabled(false);
-
+   
    
    
       SBoard board = new SBoard();
@@ -54,145 +53,26 @@ public class Editor extends JFrame {
    
       Pressed click = new Pressed();
       this.addMouseListener(click);
-      
-      //JCheckBox exchangingCard1 = new JCheckBox("A");
-      //checkBoxPanel.add(exchangingCard1);
    
       JButton saveButton = new JButton();
       saveButton.setBounds(w/2-100,10,100,30);
       saveButton.setText("Save");
       this.add(saveButton);
-      saveButton.addMouseListener(
-            new MouseListener() {
-            
-               @Override
-                public void mouseClicked(MouseEvent e) {
-                  String name = JOptionPane.showInputDialog("Name your file: ");
-                  String type = JOptionPane.showInputDialog("Is this a parcour or normal map ('parcour' or 'map')","parcour");
-                  int jump = Integer.parseInt(JOptionPane.showInputDialog("Input a whole number jump velocity","25"));
-                  try {
-                     PrintStream p = new PrintStream(new File("./User Maps/"+name + ".txt"));
-                     p.append(xPoints+ "\n");
-                     p.append(yPoints+ "\n");
-                     p.append(type+"\n");
-                     p.append(4+"\n");
-                     p.append(jump+"\n");
-                     p.append(600/yPoints+"\n");
-                     for(int i = 0; i < coloredPoints.length; i++)
-                        p.append(coloredPoints[i] + " ");
-                  
-                  }
-                  catch (Exception except) {
-                     System.err.println("File not found.");
-                  }
-               }
-            
-               @Override
-                public void mousePressed(MouseEvent e) {
-               
-               }
-            
-               @Override
-                public void mouseReleased(MouseEvent e) {
-               
-               }
-            
-               @Override
-                public void mouseEntered(MouseEvent e) {
-               
-               }
-            
-               @Override
-                public void mouseExited(MouseEvent e) {
-               
-               }
-            });
-   
+      saveButton.addActionListener(new Listener1());
+         
       JButton loadButton = new JButton();
       loadButton.setBounds(w/2+5,10,100,30);
       loadButton.setText("Load");
       this.add(loadButton);
-      loadButton.addMouseListener(
-            new MouseListener() {
+      loadButton.addActionListener(new Listener2());
             
-               @Override
-                public void mouseClicked(MouseEvent e) {
-                  String name = JOptionPane.showInputDialog("What file would you like to open?:");
-                  try {
-                     Scanner infile = new Scanner(new File("./User Maps/"+name + ".txt"));
-                     xPoints=Integer.parseInt(infile.next());
-                     yPoints=Integer.parseInt(infile.next());
-                     for (int k=0; k<4; k++)
-                     {
-                        Object thing = infile.next();
-                     }
-                     coloredPoints = new int[xPoints*yPoints];
-                     for(int i = 0; i < xPoints*yPoints; i++)
-                        coloredPoints[i]=Integer.parseInt(infile.next());
-                  
-                  }
-                  catch (Exception except) {
-                     System.err.println("File not found.");
-                  }
-               
-               }
-            
-               @Override
-                public void mousePressed(MouseEvent e) {
-               
-               }
-            
-               @Override
-                public void mouseReleased(MouseEvent e) {
-               
-               }
-            
-               @Override
-                public void mouseEntered(MouseEvent e) {
-               
-               }
-            
-               @Override
-                public void mouseExited(MouseEvent e) {
-               
-               }
-            });
    
       JButton clearButton = new JButton();
       clearButton.setBounds(w/2+105,10,100,30);
       clearButton.setText("Clear");
       this.add(clearButton);
-      clearButton.addMouseListener(
-            new MouseListener() {
+      clearButton.addActionListener(new Listener3());
             
-               @Override
-                public void mouseClicked(MouseEvent e) {
-                  JOptionPane.showMessageDialog(null, "Clear successful.");
-                  for(int i = 0; i < coloredPoints.length; i++)
-                     coloredPoints[i] = 1;
-               
-               }
-            
-               @Override
-                public void mousePressed(MouseEvent e) {
-               
-               }
-            
-               @Override
-                public void mouseReleased(MouseEvent e) {
-               
-               }
-            
-               @Override
-                public void mouseEntered(MouseEvent e) {
-               
-               }
-            
-               @Override
-                public void mouseExited(MouseEvent e) {
-               
-               }
-            });
    }
    public class SBoard extends JPanel {
       public void paintComponent(Graphics g) {
@@ -204,10 +84,10 @@ public class Editor extends JFrame {
             
          }
          if(mouseX >= 0 && mouseX < cBoxSize){
-                  if(mouseClicked){
-                     if((int)Math.round((double)mouseY/(double)cBoxSize)-1 < 16)
-                        colorNum = (int)Math.round((double)mouseY/(double)cBoxSize)-1;
-                        }
+            if(mouseClicked){
+               if((int)Math.round((double)mouseY/(double)cBoxSize)-1 < 16)
+                  colorNum = (int)Math.round((double)mouseY/(double)cBoxSize)-1;
+            }
          }
          for(int i = 0; i < xPoints; i++){
             for(int j = 0; j < yPoints; j++){
@@ -225,7 +105,7 @@ public class Editor extends JFrame {
                g.fillRect(spacing + i*boxSize+100,spacing + j*boxSize+50, boxSize-2*spacing, boxSize-2*spacing);
             }
          }
-      repaint();
+         repaint();
       }
    }
 
@@ -273,4 +153,67 @@ public class Editor extends JFrame {
 }
 
 
+
+class Listener1 implements ActionListener
+{
+   public void actionPerformed(ActionEvent e)
+   {
+      String name = JOptionPane.showInputDialog("Name your file: ");
+      String type = JOptionPane.showInputDialog("Is this a parcour or normal map ('parcour' or 'map')","parcour");
+      int jump = Integer.parseInt(JOptionPane.showInputDialog("Input a whole number jump velocity","25"));
+      try
+      {
+         PrintStream p = new PrintStream(new File("./User Maps/"+name + ".txt"));
+         p.append(Editor.xPoints+ "\n");
+         p.append(Editor.yPoints+ "\n");
+         p.append(type+"\n");
+         p.append(4+"\n");
+         p.append(jump+"\n");
+         p.append(600/Editor.yPoints+"\n");
+         for(int i = 0; i < Editor.coloredPoints.length; i++)
+            p.append(Editor.coloredPoints[i] + " ");
+      }
+      catch(Exception a)
+      {
+         System.err.println("File not found.");
+      }         
+   }
+}
+class Listener2 implements ActionListener
+{
+   public void actionPerformed(ActionEvent e)
+   {
+      String name = JOptionPane.showInputDialog("What file would you like to open?:");
+       
+      try {
+         Scanner infile = new Scanner(new File("./User Maps/"+name + ".txt"));
+         Editor.xPoints=Integer.parseInt(infile.next());
+         Editor.yPoints=Integer.parseInt(infile.next());
+         for (int k=0; k<4; k++)
+         {
+            Object thing = infile.next();
+         }
+         Editor.coloredPoints = new int[Editor.xPoints*Editor.yPoints];
+         for(int i = 0; i < Editor.xPoints*Editor.yPoints; i++)
+            Editor.coloredPoints[i]=Integer.parseInt(infile.next());
+                  
+      }
+      catch (Exception except) {
+         System.err.println("File not found.");
+      }
+               
+        
+   }
+}
+class Listener3 implements ActionListener
+{
+   public void actionPerformed(ActionEvent e)
+   {
+      
+      JOptionPane.showMessageDialog(null, "Clear successful.");
+      for(int i = 0; i < Editor.coloredPoints.length; i++)
+         Editor.coloredPoints[i] = 1;        
+        
+   }
+}
 
