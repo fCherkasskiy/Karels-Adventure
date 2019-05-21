@@ -25,104 +25,27 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 class AudioPlayer  
 { 
-  
-    // to store current position 
-   Long currentFrame; 
-   Clip clip; 
-      
-    // current status of clip 
-   String status; 
-      
+   public Clip clip;
    AudioInputStream audioStream; 
-   static String filePath; 
-  
-    // constructor to initialize streams and clip 
+   static String filePath;
+   // constructor to initialize streams and clip 
    public AudioPlayer() 
         throws UnsupportedAudioFileException, 
         IOException, LineUnavailableException  
    { 
         // create AudioInputStream object 
-      audioStream =  
-                AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile()); 
+      audioStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile()); 
           
         // create clip reference 
-      clip = AudioSystem.getClip(); 
-          
+      clip = AudioSystem.getClip();
         // open audioStream to the clip 
-      clip.open(audioStream); 
-          
+      clip.open(audioStream);
       clip.loop(Clip.LOOP_CONTINUOUSLY); 
-   } 
-  
-      
-    // Work as the user enters his choice 
-      
-   public void gotoChoice(int c) 
-            throws IOException, LineUnavailableException, UnsupportedAudioFileException  
-   { 
-      switch (c)  
-      { 
-         case 1: 
-            pause(); 
-            break; 
-         case 2: 
-            resumeAudio(); 
-            break; 
-      
-      } 
-      
-   } 
-      
-    // Method to play the audio 
-   public void play()  
-   { 
-        //start the clip 
-      clip.start(); 
-          
-      status = "play"; 
-   } 
-      
-    // Method to pause the audio 
-   public void pause()  
-   { 
-      if (status.equals("paused"))  
-      { 
-         System.out.println("audio is already paused"); 
-         return; 
-      } 
-      this.currentFrame =  
-         this.clip.getMicrosecondPosition(); 
-      clip.stop(); 
-      status = "paused"; 
-   } 
-      
-    // Method to resume the audio 
-   public void resumeAudio() throws UnsupportedAudioFileException, 
-                                IOException, LineUnavailableException  
-   { 
-      if (status.equals("play"))  
-      { 
-         System.out.println("Audio is already being played"); 
-         return; 
-      } 
-      clip.close(); 
-      resetAudioStream(); 
-      clip.setMicrosecondPosition(currentFrame); 
-      this.play(); 
-   } 
-      
-      
-    // Method to reset audio stream 
-   public void resetAudioStream() throws UnsupportedAudioFileException, IOException, 
-                                            LineUnavailableException  
-   { 
-      audioStream = AudioSystem.getAudioInputStream( 
-         new File(filePath).getAbsoluteFile()); 
-      clip.open(audioStream); 
-      clip.loop(Clip.LOOP_CONTINUOUSLY); 
-   } 
+   }
   
 } 
+
+
 
 
 
@@ -143,8 +66,8 @@ public class Menu extends JFrame implements ActionListener
       { 
          AudioPlayer.filePath = "music.wav";  // Plays the music file continuously.
          audioPlayer = new AudioPlayer(); 
-         audioPlayer.play();
-              
+         audioPlayer.clip.start();
+
       }  
           
       catch (Exception ex)  
