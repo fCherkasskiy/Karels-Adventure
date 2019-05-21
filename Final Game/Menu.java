@@ -309,10 +309,10 @@ public class Menu extends JFrame implements ActionListener
                Game2 game6 = new Game2("./Maps/Pure Skill.txt");
                break;
             case "8":
-               Game2 game7 = new Game2("./Maps/Pirate's Cove.txt");
+               Game2 game7 = new Game2("./Maps/Pure Skill 2.txt");
                break;
             case "9":
-               Game2 game8 = new Game2("./Maps/Pirate's Cove.txt");
+               Game2 game8 = new Game2("./Maps/Titanic.txt");
                break;
             default:
                System.out.println("Failed to open built-in map.");
