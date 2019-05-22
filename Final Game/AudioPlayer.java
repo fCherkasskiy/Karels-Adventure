@@ -17,12 +17,11 @@ public class AudioPlayer
    static String filePath;
    // constructor to initialize streams and clip 
    
-    /************************************************************* 
-	 * Runs the Menu constructor.
-    * Allows the user to select a volume for the music being played.
-	 * @param volume    required to determine volume of the music
-    * @throws UnsupportedAudioFileException, IOException, LineUnavailableException   throws an exception if the file does not exist, if the file is not playable, or if there was an error reading the file.
-	 **************************************************************/
+   /************************************************************* 
+   * Runs the Menu constructor.
+   * @param volume    required to determine volume of the music
+   * @throws UnsupportedAudioFileException, IOException, LineUnavailableException   throws an exception if the file does not exist, if the file is not playable, or if there was an error reading the file.
+   **************************************************************/
    public AudioPlayer(float volume) throws UnsupportedAudioFileException, IOException, LineUnavailableException  
    {
         // create AudioInputStream object 
