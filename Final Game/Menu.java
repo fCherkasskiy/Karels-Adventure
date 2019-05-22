@@ -4,37 +4,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.util.*;
 import java.lang.Math.*;
-// Java program to play an Audio 
-// file using Clip Object 
-import java.io.File; 
-import java.io.IOException; 
-import java.util.Scanner; 
-  import javax.sound.sampled.*; // These imports are all for sound.
+import javax.sound.sampled.*; 
 
-class AudioPlayer  
-{ 
-   public Clip clip;
-   AudioInputStream audioStream; 
-   static String filePath;
-   // constructor to initialize streams and clip 
-   public AudioPlayer() 
-        throws UnsupportedAudioFileException, 
-        IOException, LineUnavailableException  
-   { 
-        // create AudioInputStream object 
-      audioStream = AudioSystem.getAudioInputStream(new File(filePath).getAbsoluteFile()); 
-          
-        // create clip reference 
-      clip = AudioSystem.getClip();
-        // open audioStream to the clip 
-      clip.open(audioStream);
-      FloatControl gainControl = 
-         (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-      gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
-      clip.loop(Clip.LOOP_CONTINUOUSLY); 
-   }
-  
-} 
 
 /*****************************************************************
 * A Menu is a driver that acts upon the user's clicking.
@@ -46,19 +17,33 @@ public class Menu extends JFrame implements ActionListener
 {
    JFrame submenu; //creates submenu frame which will be hidden or unhidden by button presses
    static AudioPlayer audioPlayer;
-    /************************************************************* 
-	 * Runs the Menu constructor.
-	 * @param args    required for main method
-    * @throws FileNotFoundException     throws an exception if the file does not exist
-	 **************************************************************/
+   static String soundOption;
+   static float soundVolume;
+   /************************************************************* 
+	* Runs the Menu constructor.
+   * Allows the user to select a volume for the music being played.
+	* @param args    required for main method
+   * @throws FileNotFoundException     throws an exception if the file does not exist
+	**************************************************************/
    public static void main(String[] args) throws Exception {
       Menu main = new Menu(false); //calls the Menu class
+      
+      soundOption = JOptionPane.showInputDialog(null, "Enter sound volume (low, medium, high)", "medium");
+      while(!soundOption.equals("low") && !soundOption.equals("medium") && !soundOption.equals("high"))
+         soundOption = JOptionPane.showInputDialog(null, "Invalid option. (low, medium, high)", "medium");
+      if(soundOption.equals("low"))
+         soundVolume = -15.0f;
+      if(soundOption.equals("medium"))
+         soundVolume = -10.0f;
+      if(soundOption.equals("high"))
+         soundVolume = -5.0f;
+         
       try //attempts to play audio
       { 
          AudioPlayer.filePath = "music.wav";  // Plays the music file continuously.
-         audioPlayer = new AudioPlayer(); 
+         audioPlayer = new AudioPlayer(soundVolume); 
          audioPlayer.clip.start();
-
+      
       }  
           
       catch (Exception ex)  
