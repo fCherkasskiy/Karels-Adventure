@@ -242,6 +242,7 @@ public class AnimationPh3 extends JPanel implements ActionListener, KeyListener
       }
       if (c == KeyEvent.VK_UP)
       {
+
          if (y<top)//jumps if the player's jump is reset
          {
             vely=jump;
