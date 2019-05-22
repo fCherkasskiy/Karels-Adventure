@@ -209,7 +209,6 @@ class Listener3 implements ActionListener
    public void actionPerformed(ActionEvent e)
    {
       
-      //String doClear = JOptionPane.showConfirmDialog(null, "Are you sure you want to clear? (Type: \"yes\")", "no"); // Read user input
       int doClear = JOptionPane.showConfirmDialog(null, "Are you sure you want to fill? (THIS WILL REPLACE EVERYTHING IN CANVAS)", "Confirm",
         JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
       if(doClear == (JOptionPane.YES_OPTION)){
