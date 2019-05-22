@@ -20,24 +20,27 @@ public class Menu extends JFrame implements ActionListener
    static String soundOption;
    static float soundVolume;
    /************************************************************* 
-	* Runs the Menu constructor.
+   * Runs the Menu constructor.
    * Allows the user to select a volume for the music being played.
-	* @param args    required for main method
+   * @param args    required for main method
    * @throws FileNotFoundException     throws an exception if the file does not exist
-	**************************************************************/
+   **************************************************************/
    public static void main(String[] args) throws Exception {
       Menu main = new Menu(false); //calls the Menu class
       
-      soundOption = JOptionPane.showInputDialog(null, "Enter sound volume (low, medium, high)", "medium");
-      while(!soundOption.equals("low") && !soundOption.equals("medium") && !soundOption.equals("high"))
-         soundOption = JOptionPane.showInputDialog(null, "Invalid option. (low, medium, high)", "medium");
-      if(soundOption.equals("low"))
-         soundVolume = -15.0f;
-      if(soundOption.equals("medium"))
-         soundVolume = -10.0f;
-      if(soundOption.equals("high"))
-         soundVolume = -5.0f;
+      soundOption = JOptionPane.showInputDialog(null, "Enter sound volume (none, low, medium, high)", "medium");
+      while(!soundOption.equals("none") && !soundOption.equals("low") && !soundOption.equals("medium") && !soundOption.equals("high"))
+         soundOption = JOptionPane.showInputDialog(null, "Invalid option. (none, low, medium, high)", "medium");
          
+      if(soundOption.equals("none"))  // No sound
+         soundVolume = -80.0f;
+      if(soundOption.equals("low"))   // Some sound
+         soundVolume = -15.0f;
+      if(soundOption.equals("medium"))// Normal sound
+         soundVolume = -10.0f;
+      if(soundOption.equals("high"))  // Louder sound
+         soundVolume = -5.0f;
+     
       try //attempts to play audio
       { 
          AudioPlayer.filePath = "music.wav";  // Plays the music file continuously.
