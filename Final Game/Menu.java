@@ -9,12 +9,7 @@ import java.lang.Math.*;
 import java.io.File; 
 import java.io.IOException; 
 import java.util.Scanner; 
-  
-import javax.sound.sampled.AudioInputStream; // These imports are all for sound.
-import javax.sound.sampled.AudioSystem; 
-import javax.sound.sampled.Clip; 
-import javax.sound.sampled.LineUnavailableException; 
-import javax.sound.sampled.UnsupportedAudioFileException; 
+  import javax.sound.sampled.*; // These imports are all for sound.
 
 class AudioPlayer  
 { 
@@ -33,10 +28,14 @@ class AudioPlayer
       clip = AudioSystem.getClip();
         // open audioStream to the clip 
       clip.open(audioStream);
+      FloatControl gainControl = 
+         (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+      gainControl.setValue(-10.0f); // Reduce volume by 10 decibels.
       clip.loop(Clip.LOOP_CONTINUOUSLY); 
    }
   
 } 
+
 /*****************************************************************
 * A Menu is a driver that acts upon the user's clicking.
 * A Menu helps the user by passing data to other classes.
