@@ -13,15 +13,15 @@ import java.lang.Math.*;
 	****************************************************************/
 public class Game2 
 {
-    JFrame display;
-    Scanner infile;
-    int width;
-    int height;
-    String filename;
-    String maptype;
-    int platform;
-    int jump;
-    int scale;
+    JFrame display;//sets up the JFrame
+    Scanner infile;//the Scanner for the map file
+    int width;//width of the frame
+    int height;//height of the frame
+    String filename;//the file name of the map
+    String maptype;//the type of map
+    int platform;//the platform color code
+    int jump;//the jump velocity
+    int scale;//the scale of the map (number of pixels in each side of the squares)
     /************************************************************* 
 	 * Constructs a jframe with properties specified by reading level file.
 	 * @param level    level filename
@@ -29,7 +29,8 @@ public class Game2
 	 **************************************************************/
     public Game2(String level) throws Exception
     {
-        infile = new Scanner(new File(level));
+        infile = new Scanner(new File(level));//sets up a Scanner
+        //reads all important data from the file and stores it into variables
         width = Integer.parseInt(infile.next());
         height = Integer.parseInt(infile.next());
         filename=level;
@@ -37,6 +38,7 @@ public class Game2
         platform = Integer.parseInt(infile.next());
         jump = Integer.parseInt(infile.next());
         scale = Integer.parseInt(infile.next());
+        //makes the JFrame
         display = new JFrame();
         display.setTitle(level);
         display.setAlwaysOnTop(true);
@@ -45,13 +47,14 @@ public class Game2
         display.setVisible(true);
         display.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         display.setLayout(new BorderLayout());
+        //defines and constructs a close button which exits to the menu
         JButton closebutton = new JButton("EXIT TO MENU");
         closebutton.setPreferredSize(new Dimension(10, 15));
         closebutton.addActionListener(new Listener1());
         closebutton.setBackground(Color.RED);
         closebutton.setOpaque(true);
         display.add(closebutton, BorderLayout.NORTH);
-        addALittleMan(display);
+        addALittleMan(display);//adds the Animation class
 
     }
     private class Listener1 implements ActionListener
@@ -62,14 +65,14 @@ public class Game2
       	**************************************************************/
          public void actionPerformed(ActionEvent e)
          {
-            try
+            try//attempts to return to the Menu, disposing of the level
             {
                Menu exit = new Menu(false);
                display.dispose();
             }
             catch(Exception a)
             {
-               System.out.println(a.getStackTrace()[0].getLineNumber());
+               System.out.println(a.getStackTrace()[0].getLineNumber());//prints out the line which errored
             }
          }
       }
@@ -79,12 +82,13 @@ public class Game2
 	 * @param jFrame	 passes the JFrame to which the character should be added
     * @throws ClassNotFoundException     throws an exception if the class does not exist
 	 **************************************************************/
-    public void addALittleMan(JFrame jFrame) throws Exception {
-       AnimationPh3 per = new AnimationPh3(filename,maptype,platform,jump,scale); //send filename,maptype, width, and height, platform color, jump, scale
-       per.setOpaque(false);
+    public void addALittleMan(JFrame jFrame) throws Exception 
+    {
+       AnimationPh3 per = new AnimationPh3(filename,maptype,platform,jump,scale); //sends filename,maptype, width, and height, platform color, jump, scale
+       per.setOpaque(false);//sets the background to be transparent on the character
        jFrame.add(per);
        per.setFocusable(true);
-       per.requestFocus();
-       per.setFocusTraversalKeysEnabled(false);
+       per.requestFocus();//gets the keyboard listener to focus on the character
+       per.setFocusTraversalKeysEnabled(false);//removes focus traversal keys, the focus will always remain on the character
     }
 }
