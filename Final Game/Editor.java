@@ -20,7 +20,7 @@ public class Editor extends JFrame {
    int mouseX;
    int mouseY;
    boolean mouseClicked;
-   int colorNum;
+   static int colorNum;
    static int[] coloredPoints;
    String[] colorArr = mapLoader.ColorList.COLOR_LIST;
    public Editor() {
@@ -69,7 +69,7 @@ public class Editor extends JFrame {
    
       JButton clearButton = new JButton();
       clearButton.setBounds(w/2+105,10,100,30);
-      clearButton.setText("Clear");
+      clearButton.setText("Fill All");
       this.add(clearButton);
       clearButton.addActionListener(new Listener3());
             
@@ -98,7 +98,6 @@ public class Editor extends JFrame {
                      g.setColor(Color.decode(colorArr[colorNum]));
                      if (mouseClicked) {
                         coloredPoints[i+xPoints*j] = colorNum;
-                        //mouseClicked = false;
                      }
                   }
                }
@@ -210,10 +209,13 @@ class Listener3 implements ActionListener
    public void actionPerformed(ActionEvent e)
    {
       
-      JOptionPane.showMessageDialog(null, "Clear successful.");
-      for(int i = 0; i < Editor.coloredPoints.length; i++)
-         Editor.coloredPoints[i] = 1;        
-        
+      int doClear = JOptionPane.showConfirmDialog(null, "Are you sure you want to fill? (THIS WILL REPLACE EVERYTHING IN CANVAS)", "Confirm",
+        JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
+      if(doClear == (JOptionPane.YES_OPTION)){
+         JOptionPane.showMessageDialog(null, "Fill successful.");
+         for(int i = 0; i < Editor.coloredPoints.length; i++)
+            Editor.coloredPoints[i] = Editor.colorNum;        
+      }
    }
 }
 
